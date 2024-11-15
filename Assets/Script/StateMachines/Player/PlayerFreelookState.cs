@@ -48,7 +48,7 @@ public class PlayerFreeLookState : PlayerBaseState
             return;
         }
         stateMachine.Animator.SetFloat(FreeLookSpeedHash, blendHash, AnimatorDampTime, deltaTime);
-        stateMachine.transform.rotation = Quaternion.LookRotation(movement);
+        FaceMovementDirection(movement, deltaTime);
     }
     private Vector3 CalculateMovement()
     {
@@ -59,9 +59,18 @@ public class PlayerFreeLookState : PlayerBaseState
         forward.y = 0f;
         right.y = 0f;
 
+        forward.Normalize();
+        right.Normalize();
+
         return forward * stateMachine.InputReader.MovementValue.y +
             right * stateMachine.InputReader.MovementValue.x;
     }
-
+    private void FaceMovementDirection(Vector3 movement, float deltaTime)
+    {
+        stateMachine.transform.rotation = Quaternion.Lerp(
+            stateMachine.transform.rotation,
+            Quaternion.LookRotation(movement),
+            deltaTime * stateMachine.RotationDamping);
+    }
 
 }

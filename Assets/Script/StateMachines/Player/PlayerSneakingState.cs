@@ -32,7 +32,7 @@ public class PlayerSneakingState : PlayerBaseState
             return;
         }
         stateMachine.Animator.SetFloat(SneakingSpeedHash, 1, AnimatorDampTime, deltaTime);
-        stateMachine.transform.rotation = Quaternion.LookRotation(movement);
+        FaceMovementDirection(movement, deltaTime);
     }
 
     private Vector3 CalculateMovement()
@@ -46,5 +46,12 @@ public class PlayerSneakingState : PlayerBaseState
 
         return forward * stateMachine.InputReader.MovementValue.y +
             right * stateMachine.InputReader.MovementValue.x;
+    }
+    private void FaceMovementDirection(Vector3 movement, float deltaTime)
+    {
+        stateMachine.transform.rotation = Quaternion.Lerp(
+            stateMachine.transform.rotation,
+            Quaternion.LookRotation(movement),
+            deltaTime * stateMachine.RotationDamping);
     }
 }

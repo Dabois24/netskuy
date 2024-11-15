@@ -997,7 +997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
       propertyPath: m_Name
-      value: Tejo
+      value: Tejo Alter
       objectReference: {fileID: 0}
     - target: {fileID: 1041141153268353169, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2335,13 +2335,7 @@ PrefabInstance:
       addedObject: {fileID: 5897446474255946422}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1249714962806924253}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1955895441223375852}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7509606329210627212}
     - targetCorrespondingSourceObject: {fileID: 2942400269830230458, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8775911078077926617}
@@ -3547,30 +3541,6 @@ CharacterController:
   m_SkinWidth: 0.025
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.875, z: 0}
---- !u!114 &1249714962806924253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3287304499280429784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c476392a18fef4284dbec33e0f851e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <InputReader>k__BackingField: {fileID: 7509606329210627212}
-  <Controller>k__BackingField: {fileID: 5897446474255946422}
-  <Animator>k__BackingField: {fileID: 2544700579994470257}
-  <ForceReceiver>k__BackingField: {fileID: 1955895441223375852}
-  <WalkingSpeed>k__BackingField: 4
-  <RunningSpeed>k__BackingField: 6
-  <SneakingSpeed>k__BackingField: 3
-  <StandingHeight>k__BackingField: 1.75
-  <StandingOffset>k__BackingField: 0.875
-  <SneakingHeight>k__BackingField: 1.3
-  <SneakingOffset>k__BackingField: 0.65
-  <RotationDamping>k__BackingField: 10
 --- !u!114 &1955895441223375852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3586,19 +3556,6 @@ MonoBehaviour:
   controller: {fileID: 5897446474255946422}
   agent: {fileID: 0}
   drag: 0.3
---- !u!114 &7509606329210627212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3287304499280429784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 565b98a8dc88aec4a86c926794fc2810, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsSprint: 0
 --- !u!1 &3366006765225190631 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1146665859522321262, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
