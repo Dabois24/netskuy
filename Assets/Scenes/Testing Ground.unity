@@ -198,11 +198,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &133585615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 133585616}
+  m_Layer: 0
+  m_Name: p1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &133585616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133585615}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &178036613 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6963609390698075482, guid: 924b67cd9f877af4ca93c58771bc345a, type: 3}
   m_PrefabInstance: {fileID: 1404787428}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &671007891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 671007892}
+  m_Layer: 0
+  m_Name: p1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &671007892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671007891}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -23.1, y: 0, z: 24.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &918361790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,6 +1624,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tejo Alter
       objectReference: {fileID: 0}
+    - target: {fileID: 7462326886686495944, guid: e1cbb25a6a0f5bb40ae67760f6462d74, type: 3}
+      propertyPath: <PatrolPoint>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462326886686495944, guid: e1cbb25a6a0f5bb40ae67760f6462d74, type: 3}
+      propertyPath: '<PatrolPoint>k__BackingField.Array.data[0]'
+      value: 
+      objectReference: {fileID: 133585616}
+    - target: {fileID: 7462326886686495944, guid: e1cbb25a6a0f5bb40ae67760f6462d74, type: 3}
+      propertyPath: '<PatrolPoint>k__BackingField.Array.data[1]'
+      value: 
+      objectReference: {fileID: 671007892}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1669,3 +1743,5 @@ SceneRoots:
   - {fileID: 1819028592}
   - {fileID: 918361791}
   - {fileID: 2027172510}
+  - {fileID: 133585616}
+  - {fileID: 671007892}
