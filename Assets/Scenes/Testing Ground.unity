@@ -1626,7 +1626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7462326886686495944, guid: e1cbb25a6a0f5bb40ae67760f6462d74, type: 3}
       propertyPath: <PatrolPoint>k__BackingField.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7462326886686495944, guid: e1cbb25a6a0f5bb40ae67760f6462d74, type: 3}
       propertyPath: '<PatrolPoint>k__BackingField.Array.data[0]'
