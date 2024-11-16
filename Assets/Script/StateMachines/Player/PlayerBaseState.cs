@@ -15,7 +15,7 @@ protected PlayerStateMachine stateMachine;
 
     protected void Move(Vector3 motion, float deltaTime)
     {
-        Debug.Log($"motion: {motion} + {stateMachine.ForceReceiver.Movement}; ");
+        // Debug.Log($"motion: {motion} + {stateMachine.ForceReceiver.Movement}; ");
         stateMachine.Controller.Move((motion + stateMachine.ForceReceiver.Movement) * deltaTime);
     }
     public void SwitchToSneaking()

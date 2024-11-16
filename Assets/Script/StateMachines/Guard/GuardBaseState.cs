@@ -19,4 +19,14 @@ public abstract class GuardBaseState : State
         stateMachine.Controller.Move((motion + stateMachine.ForceReceiver.Movement) * deltaTime);
     }
 
+    protected void FaceTarget(Vector3 target, float deltaTime)
+    {
+        Vector3 lookPos = target - stateMachine.transform.position;
+        lookPos.y = 0f;
+
+        stateMachine.transform.rotation = Quaternion.Lerp(
+            stateMachine.transform.rotation,
+            Quaternion.LookRotation(lookPos),
+            deltaTime * stateMachine.RotationDamping);
+    }
 }

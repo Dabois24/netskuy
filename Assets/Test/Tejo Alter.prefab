@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6963609390698075482}
   m_Layer: 0
-  m_Name: Camera Anchor
+  m_Name: Raycast Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 8120177138620968376}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.904, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -998,6 +998,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
       propertyPath: m_Name
       value: Tejo Alter
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
+      propertyPath: m_TagString
+      value: Guard
       objectReference: {fileID: 0}
     - target: {fileID: 1041141153268353169, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2335,7 +2339,16 @@ PrefabInstance:
       addedObject: {fileID: 5897446474255946422}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 7462326886686495944}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1517638201204270527}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1955895441223375852}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4071575115352899604}
     - targetCorrespondingSourceObject: {fileID: 2942400269830230458, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8775911078077926617}
@@ -3541,6 +3554,57 @@ CharacterController:
   m_SkinWidth: 0.025
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.875, z: 0}
+--- !u!114 &7462326886686495944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3287304499280429784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a53b3ce79681879469967bb90c65f8d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Animator>k__BackingField: {fileID: 2544700579994470257}
+  <Controller>k__BackingField: {fileID: 5897446474255946422}
+  <ForceReceiver>k__BackingField: {fileID: 1955895441223375852}
+  <Agent>k__BackingField: {fileID: 4071575115352899604}
+  <GuardSight>k__BackingField: {fileID: 1517638201204270527}
+  <PatrolSpeed>k__BackingField: 4
+  <RotationDamping>k__BackingField: 10
+  <sentryMinAngle>k__BackingField: -45
+  <sentryMaxAngle>k__BackingField: 45
+  <sentryRotateSpeed>k__BackingField: 50
+  <sentryScanDuration>k__BackingField: 3
+  <sentryIdleDuration>k__BackingField: 2
+  <PatrolPoint>k__BackingField: []
+  <ChaseSpeed>k__BackingField: 5
+  <CaptureDistance>k__BackingField: 1
+--- !u!114 &1517638201204270527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3287304499280429784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21601f89c1f8f7d43a5d9b5947111fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsChasing: 0
+  detectionRange: 10
+  raycastOrigin: {fileID: 6963609390698075482}
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  obstructionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  <detectionTime>k__BackingField: 5
+  <lostSightTime>k__BackingField: 10
+  <captureCountdownTime>k__BackingField: 6
 --- !u!114 &1955895441223375852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3554,8 +3618,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 5897446474255946422}
-  agent: {fileID: 0}
+  agent: {fileID: 4071575115352899604}
   drag: 0.3
+--- !u!195 &4071575115352899604
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3287304499280429784}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 1
+  avoidancePriority: 50
+  m_AngularSpeed: 1
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &3366006765225190631 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1146665859522321262, guid: 1d5ac157f29d24a40b99aaf0dd75dc97, type: 3}
