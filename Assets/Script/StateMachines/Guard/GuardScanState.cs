@@ -54,7 +54,7 @@ public class GuardScanState : GuardBaseState
         {
             isInterrupted = true;
             interruptedRotation = stateMachine.transform.rotation;
-            FaceTarget(stateMachine.GuardSight.Player.position, deltaTime);
+            FaceTargetDirect(stateMachine.GuardSight.Player.position, deltaTime);
             return true;
         }
 

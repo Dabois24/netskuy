@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GuardSight : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class GuardSight : MonoBehaviour
 
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 10f;
-    [SerializeField] private Transform raycastOrigin;
+    [SerializeField] private List<Transform> raycastOrigins = new List<Transform>();
     [SerializeField] private LayerMask detectionLayer;   // Layer for the player
     [SerializeField] private LayerMask obstructionLayer; // Layer for obstacles
 
@@ -32,37 +33,48 @@ public class GuardSight : MonoBehaviour
         {
             Debug.LogError("Player not found. Make sure the player has the 'Player' tag.");
         }
+
+        if (raycastOrigins.Count == 0)
+        {
+            raycastOrigins.Add(transform);
+        }
     }
 
     public void UpdateSight()
     {
-        // if (Player == null) return;
+        if (Player == null) return;
 
-        Transform origin = raycastOrigin != null ? raycastOrigin : transform;
+        bool playerDetected = false;
+        bool playerObstructed = false;
 
-        Vector3 facingDirection = Player != null && (IsChasing || IsPlayerDetected) ? (Player.position - transform.position).normalized : transform.forward;
-
-        if (Physics.Raycast(origin.position, facingDirection, out RaycastHit hit, detectionRange, detectionLayer | obstructionLayer))
+        // Check each raycast origin
+        foreach (Transform origin in raycastOrigins)
         {
-            if (((1 << hit.collider.gameObject.layer) & detectionLayer) != 0)
+            Vector3 facingDirection = Player != null && (IsChasing || IsPlayerDetected)
+                ? (Player.position - origin.position).normalized
+                : origin.forward;
+
+            if (Physics.Raycast(origin.position, facingDirection, out RaycastHit hit, detectionRange, detectionLayer | obstructionLayer))
             {
-                IsPlayerDetected = true;
-                IsPlayerObstructed = false;
-                Debug.DrawLine(origin.position, hit.point, Color.green);
-                return;
+                if (((1 << hit.collider.gameObject.layer) & detectionLayer) != 0)
+                {
+                    playerDetected = true;
+                    Debug.DrawLine(origin.position, hit.point, Color.green);
+                }
+                else
+                {
+                    playerObstructed = true;
+                    Debug.DrawLine(origin.position, hit.point, Color.red);
+                }
             }
             else
             {
-                IsPlayerObstructed = true;
-                Debug.DrawLine(origin.position, hit.point, Color.red);
+                Debug.DrawLine(origin.position, origin.position + facingDirection * detectionRange, Color.red);
             }
         }
-        else
-        {
-            IsPlayerDetected = false;
-            IsPlayerObstructed = true;
-            Debug.DrawLine(origin.position, origin.position + facingDirection * detectionRange, Color.red);
-        }
+
+        IsPlayerDetected = playerDetected;
+        IsPlayerObstructed = playerObstructed;
     }
 
     public bool DetectPlayerForSeconds(float seconds)
@@ -70,9 +82,7 @@ public class GuardSight : MonoBehaviour
         if (IsPlayerDetected)
         {
             detectionTimer += Time.deltaTime;
-
-            Debug.Log($"detection Timer : {detectionTimer}");
-
+            Debug.Log($"Detection Timer: {detectionTimer}");
             return detectionTimer >= seconds;
         }
         else

@@ -36,7 +36,7 @@ public class GuardPatrolState : GuardBaseState
         if (stateMachine.GuardSight.IsPlayerDetected)
         {
             StopMove(deltaTime);
-            FaceTarget(stateMachine.GuardSight.Player.position, deltaTime);
+            FaceTargetDirect(stateMachine.GuardSight.Player.position, deltaTime);
             stateMachine.Animator.SetFloat(FreeLookSpeedHash, 0, AnimatorDampTime, deltaTime);
             return;
         }

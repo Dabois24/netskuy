@@ -29,4 +29,11 @@ public abstract class GuardBaseState : State
             Quaternion.LookRotation(lookPos),
             deltaTime * stateMachine.RotationDamping);
     }
+    protected void FaceTargetDirect(Vector3 target, float deltaTime)
+    {
+        Vector3 lookPos = target - stateMachine.transform.position;
+        lookPos.y = 0f;
+
+        stateMachine.transform.rotation = Quaternion.LookRotation(lookPos);
+    }
 }
