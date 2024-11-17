@@ -85,19 +85,27 @@ public class GuardScanState : GuardBaseState
 
         if (scanningTimer < stateMachine.sentryIdleDuration)
         {
+            // Initial idle duration
             stateMachine.Animator.SetFloat(FreeLookSpeedHash, 0, AnimatorDampTime, deltaTime);
             return;
         }
 
         float scanProgress = (scanningTimer - stateMachine.sentryIdleDuration) / stateMachine.sentryScanDuration;
 
-        if (scanProgress <= 0.5f)
+        if (scanProgress <= 0.333f)
         {
-            PerformLeftScan(scanProgress * 2f);
+            // Scan left
+            PerformLeftScan(scanProgress * 3f);
+        }
+        else if (scanProgress <= 0.666f)
+        {
+            // Scan right from the leftmost position
+            PerformRightScan((scanProgress - 0.333f) * 3f);
         }
         else if (scanProgress <= 1f)
         {
-            PerformRightScan((scanProgress - 0.5f) * 2f);
+            // Return to initial rotation from the rightmost position
+            PerformReturnScan((scanProgress - 0.666f) * 3f);
         }
         else
         {
@@ -124,6 +132,17 @@ public class GuardScanState : GuardBaseState
         stateMachine.transform.rotation = Quaternion.Euler(
             initialRotation.eulerAngles.x,
             initialRotation.eulerAngles.y + rightAngle,
+            initialRotation.eulerAngles.z);
+
+        stateMachine.Animator.SetFloat(FreeLookSpeedHash, 0, AnimatorDampTime, Time.deltaTime);
+    }
+
+    private void PerformReturnScan(float progress)
+    {
+        float returnAngle = Mathf.Lerp(stateMachine.scanMaxAngle, 0f, progress);
+        stateMachine.transform.rotation = Quaternion.Euler(
+            initialRotation.eulerAngles.x,
+            initialRotation.eulerAngles.y + returnAngle,
             initialRotation.eulerAngles.z);
 
         stateMachine.Animator.SetFloat(FreeLookSpeedHash, 0, AnimatorDampTime, Time.deltaTime);
