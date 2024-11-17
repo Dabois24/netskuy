@@ -89,24 +89,30 @@ namespace UniVRM10.Test
 
             // remove textures
             instance.Vrm.Meta.Thumbnail = null;
-            var m = new Material(Shader.Find("Unlit/Color"));
+
             foreach (var r in instance.GetComponentsInChildren<Renderer>())
             {
-                r.sharedMaterials = r.sharedMaterials.Select(x => m).ToArray();
+                r.sharedMaterials = r.sharedMaterials.Select(x =>
+                {
+                    var m = new Material(Shader.Find("UniGLTF/UniUnlit"));
+                    return m;
+                }).ToArray();
             }
+
+            var settings = new GltfExportSettings();
 
             // export as vrm1
             using (var arrayManager = new NativeArrayManager())
             {
                 var converter = new UniVRM10.ModelExporter();
-                var model = converter.Export(arrayManager, instance.gameObject);
+                var model = converter.Export(settings, arrayManager, instance.gameObject);
 
                 // 右手系に変換
                 Debug.Log($"convert to right handed coordinate...");
                 model.ConvertCoordinate(VrmLib.Coordinates.Vrm1, ignoreVrm: false);
 
                 // export vrm-1.0
-                var exporter = new Vrm10Exporter(new GltfExportSettings());
+                var exporter = new Vrm10Exporter(settings);
                 exporter.Export(instance.gameObject, model, converter, new VrmLib.ExportArgs
                 {
                     sparse = false,
