@@ -3,49 +3,53 @@ using UnityEngine;
 public class GuardHear : MonoBehaviour
 {
     [Header("Hearing Settings")]
-    [SerializeField] private float hearingRange = 15f; // Max distance for noise detection
-    [SerializeField] private float noiseDetectionThreshold = 5f; // Minimum noise level to respond
-    [SerializeField] private LayerMask noiseSourceLayer; // Layer for noise sources
+    [SerializeField] private float detectionTime = 2f;
 
-    public bool HasHeardNoise { get; private set; }
+    private float detectionTimer;
+    private bool isNoiseDetected;
     public Vector3 LastHeardPosition { get; private set; }
+    private Transform detectedNoiseSource;
 
-    private void Awake()
+    public bool IsNoiseDetected => isNoiseDetected;
+    public Transform DetectedNoiseSource => detectedNoiseSource;
+
+    public void ResetDetection()
     {
-        HasHeardNoise = false;
-        LastHeardPosition = Vector3.zero;
+        isNoiseDetected = false;
+        detectedNoiseSource = null;
+        detectionTimer = 0;
     }
 
-    public void ListenForNoise()
+    public void ProcessNoise(Transform noiseSource, float noiseLevel, bool isImpulse)
     {
-        Collider[] noiseSources = Physics.OverlapSphere(transform.position, hearingRange, noiseSourceLayer);
-
-        foreach (var source in noiseSources)
+        // Handle impulse noise
+        if (isImpulse)
         {
-            NoiseSource noise = source.GetComponent<NoiseSource>();
-            if (noise != null && noise.NoiseLevel >= noiseDetectionThreshold)
-            {
-                Debug.Log($"Noise detected from {noise.transform.position}");
-                HasHeardNoise = true;
-                LastHeardPosition = noise.transform.position;
-                return;
-            }
+            DetectNoise(noiseSource);
+            return;
         }
 
-        // Reset if no noise detected
-        HasHeardNoise = false;
+        // Gradual detection based on timer
+        detectionTimer += Time.deltaTime;
+        if (detectionTimer >= detectionTime)
+        {
+            DetectNoise(noiseSource);
+        }
     }
 
-    public void ResetHearing()
+    private void DetectNoise(Transform noiseSource)
     {
-        HasHeardNoise = false;
-        LastHeardPosition = Vector3.zero;
+        Debug.Log("Noise Detected.");
+        isNoiseDetected = true;
+        detectedNoiseSource = noiseSource;
+        LastHeardPosition = noiseSource.position;
+        detectionTimer = 0; // Reset detection timer
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, hearingRange);
+        // Draw the guard's position with a sphere
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, 0.5f); // Small cyan sphere for the guard
     }
-
 }

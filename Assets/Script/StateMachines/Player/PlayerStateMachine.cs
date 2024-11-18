@@ -23,11 +23,11 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public float SneakingOffset { get; private set; }
 
     [field: Header("Noise")]
-    [field: SerializeField] public float WalkingBaseNoise { get; private set; } = 5;
+    [field: SerializeField] public float WalkingMaxNoise { get; private set; } = 5;
     [field: SerializeField] public float WalkingEmitIntensity { get; private set; } = 2;
-    [field: SerializeField] public float RunningBaseNoise { get; private set; } = 10;
+    [field: SerializeField] public float RunningMaxNoise { get; private set; } = 10;
     [field: SerializeField] public float RunningEmitIntensity { get; private set; } = 5;
-    [field: SerializeField] public float SneakingBaseNoise { get; private set; } = 2;
+    [field: SerializeField] public float SneakingMaxNoise { get; private set; } = 2;
     [field: SerializeField] public float SneakingEmitIntensity { get; private set; } = 2;
 
 

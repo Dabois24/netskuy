@@ -28,12 +28,11 @@ public class PlayerSneakingState : PlayerBaseState
         Move(movement * stateMachine.SneakingSpeed, deltaTime);
         if (stateMachine.InputReader.MovementValue == Vector2.zero)
         {
-            stateMachine.NoiseSource.ResetBaseNoiseLevel();
             stateMachine.Animator.SetFloat(SneakingSpeedHash, 0, AnimatorDampTime, deltaTime);
             return;
         }
 
-        stateMachine.NoiseSource.SetBaseNoiseLevel(stateMachine.SneakingBaseNoise);
+        stateMachine.NoiseSource.SetMaxNoiseRange(stateMachine.SneakingMaxNoise);
         stateMachine.NoiseSource.EmitNoise(stateMachine.SneakingEmitIntensity);
 
         stateMachine.Animator.SetFloat(SneakingSpeedHash, 1, AnimatorDampTime, deltaTime);

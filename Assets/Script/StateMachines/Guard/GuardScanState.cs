@@ -26,7 +26,6 @@ public class GuardScanState : GuardBaseState
     public override void Tick(float deltaTime)
     {
         stateMachine.GuardSight.UpdateSight();
-        stateMachine.GuardHear.ListenForNoise();
 
         if (HandlePlayerDetection(deltaTime)) return;
 
@@ -64,7 +63,7 @@ public class GuardScanState : GuardBaseState
 
     private bool HandleHeardNoise()
     {
-        if (stateMachine.GuardHear.HasHeardNoise)
+        if (stateMachine.GuardHear.IsNoiseDetected)
         {
             Debug.Log("Noise detected! Switching to Investigate State.");
             stateMachine.SwitchState(new GuardInvestigateState(stateMachine, stateMachine.GuardHear.LastHeardPosition));

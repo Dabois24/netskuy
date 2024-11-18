@@ -8,6 +8,7 @@ public class GuardInvestigateState : GuardBaseState
     private const float CrossFadeDuration = 0.5f;
 
     private Vector3 noisePosition;
+    private bool isFacingNoisePosition;
 
     public GuardInvestigateState(GuardStateMachine stateMachine, Vector3 noisePosition) : base(stateMachine)
     {
@@ -18,6 +19,7 @@ public class GuardInvestigateState : GuardBaseState
     {
         Debug.Log($"Investigating noise at {noisePosition}");
         stateMachine.Animator.CrossFadeInFixedTime(FreeLookBlendTreeHash, CrossFadeDuration);
+        isFacingNoisePosition = false;
     }
 
     public override void Tick(float deltaTime)
@@ -39,14 +41,22 @@ public class GuardInvestigateState : GuardBaseState
             return;
         }
 
-        // Rotate towards noise source
-        Vector3 direction = (noisePosition - stateMachine.transform.position).normalized;
-        FaceTarget(direction, deltaTime);
-
         // If close enough, switch to scan
         if (Vector3.Distance(stateMachine.transform.position, noisePosition) < stateMachine.InvestigateToScanDistance)
         {
-            Debug.Log("Finished investigating noise. Returning to patrol.");
+            // Rotate towards noise source
+            if (!isFacingNoisePosition)
+            {
+                isFacingNoisePosition = RotateTowards(noisePosition, deltaTime);
+
+                if (!isFacingNoisePosition)
+                {
+                    StopMove(deltaTime);
+                    return;
+                }
+            }
+
+            Debug.Log("Noise source is near. Face noise position and switch to scan.");
             stateMachine.SwitchState(new GuardScanState(stateMachine));
             return;
         }
@@ -57,8 +67,9 @@ public class GuardInvestigateState : GuardBaseState
 
     public override void Exit()
     {
-        stateMachine.GuardHear.ResetHearing();
+        stateMachine.GuardHear.ResetDetection();
     }
+
     private void MoveToDestination(Vector3 destination, float deltaTime)
     {
         if (stateMachine.Agent.isOnNavMesh)
@@ -69,5 +80,20 @@ public class GuardInvestigateState : GuardBaseState
 
         stateMachine.Agent.velocity = stateMachine.Controller.velocity;
         FaceTarget(destination, deltaTime);
+    }
+
+    private bool RotateTowards(Vector3 target, float deltaTime)
+    {
+        Vector3 direction = (noisePosition - stateMachine.transform.position).normalized;
+
+        float angleToTarget = Vector3.Angle(stateMachine.transform.forward, direction);
+
+        if (angleToTarget > 1f)
+        {
+            FaceTarget(target, deltaTime);
+            return false;
+        }
+
+        return true;
     }
 }

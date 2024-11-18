@@ -26,19 +26,19 @@ public class PlayerFreeLookState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
-        float speed, blendHash, baseNoise, emitIntensity;
+        float speed, blendHash, maxNoise, emitIntensity;
         if (stateMachine.InputReader.IsSprint)
         {
             speed = stateMachine.RunningSpeed;
             blendHash = RunningHash;
-            baseNoise = stateMachine.RunningBaseNoise;
+            maxNoise = stateMachine.RunningMaxNoise;
             emitIntensity = stateMachine.RunningEmitIntensity;
         }
         else
         {
             speed = stateMachine.WalkingSpeed;
             blendHash = WalkingHash;
-            baseNoise = stateMachine.WalkingBaseNoise;
+            maxNoise = stateMachine.WalkingMaxNoise;
             emitIntensity = stateMachine.WalkingEmitIntensity;
         }
 
@@ -47,12 +47,11 @@ public class PlayerFreeLookState : PlayerBaseState
 
         if (stateMachine.InputReader.MovementValue == Vector2.zero)
         {
-            stateMachine.NoiseSource.ResetBaseNoiseLevel();
             stateMachine.Animator.SetFloat(FreeLookSpeedHash, 0, AnimatorDampTime, deltaTime);
             return;
         }
 
-        stateMachine.NoiseSource.SetBaseNoiseLevel(baseNoise);
+        stateMachine.NoiseSource.SetMaxNoiseRange(maxNoise);
         stateMachine.NoiseSource.EmitNoise(emitIntensity);
 
         stateMachine.Animator.SetFloat(FreeLookSpeedHash, blendHash, AnimatorDampTime, deltaTime);

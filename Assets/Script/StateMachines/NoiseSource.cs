@@ -1,83 +1,109 @@
 using UnityEngine;
-using System.Collections;
 
 public class NoiseSource : MonoBehaviour
 {
     [Header("Noise Settings")]
-    [SerializeField] private float baseNoiseLevel = 0f; // Default noise level
-    [SerializeField] private float maxNoiseRange = 15f; // Max range where noise can be heard
-    [SerializeField] private float noiseDecayRate = 1f; // Rate at which noise diminishes over time
+    [SerializeField] private float maxNoiseRange = 10f;
+    [SerializeField] private float noiseDecayRate = 2f;
+    [SerializeField] private float noiseDecayDelay = 1f;
 
-    public float NoiseLevel { get; private set; }
+    private float currentDecayDelay;
+    private float currentNoiseRange;
+    private bool wasImpulseNoise;
 
-    private float originalBaseNoiseLevel; // To store the initial base noise level
-    private Coroutine temporaryNoiseCoroutine;
+    public float CurrentNoiseRange => currentNoiseRange;
 
-    private void Awake()
+    public bool WasImpulseNoise
     {
-        originalBaseNoiseLevel = baseNoiseLevel;
-        NoiseLevel = baseNoiseLevel;
+        get
+        {
+            bool value = wasImpulseNoise;
+            wasImpulseNoise = false; // Reset after check
+            return value;
+        }
+    }
+
+    private bool isActive = false;
+
+    private void Update()
+    {
+        if (!isActive) return;
+
+        currentDecayDelay -= Time.deltaTime;
+
+        if (currentDecayDelay <= 0)
+        {
+            // Gradually reduce the noise level toward zero
+            if (currentNoiseRange > 0)
+            {
+                currentNoiseRange = Mathf.Max(currentNoiseRange - noiseDecayRate * Time.deltaTime, 0);
+
+                if (currentNoiseRange == 0)
+                {
+                    isActive = false; // Stop updating when noise completely decays
+                }
+            }
+            else
+            {
+                currentNoiseRange = 0;
+                isActive = false;
+            }
+        }
+
+        TriggerNoiseProcessing();
+    }
+
+    public void EmitNoise()
+    {
+        EmitNoise(noiseDecayRate);
     }
 
     public void EmitNoise(float intensity)
     {
-        NoiseLevel = Mathf.Clamp(baseNoiseLevel + intensity, 0f, maxNoiseRange);
-    }
-
-    private void Update()
-    {
-        // Decay noise level over time
-        if (NoiseLevel > baseNoiseLevel)
+        if (currentNoiseRange < maxNoiseRange)
         {
-            NoiseLevel = Mathf.Max(baseNoiseLevel, NoiseLevel - noiseDecayRate * Time.deltaTime);
+            currentNoiseRange = Mathf.Min(currentNoiseRange + intensity * Time.deltaTime, maxNoiseRange);
+            currentDecayDelay = noiseDecayDelay;
+            isActive = true; // Ensure updates continue when noise is emitted
         }
     }
 
-    public void SetTemporaryBaseNoiseLevel(float newBaseLevel, float duration)
+    public void EmitNoiseImpulse(float impulseNoise)
     {
-        if (temporaryNoiseCoroutine != null)
+        currentNoiseRange += impulseNoise;
+        wasImpulseNoise = true;
+        isActive = true; // Ensure updates continue when impulse noise is emitted
+        TriggerNoiseProcessing();
+    }
+
+    private void TriggerNoiseProcessing()
+    {
+        if (currentNoiseRange <= 0) return;
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, currentNoiseRange);
+        foreach (Collider collider in colliders)
         {
-            StopCoroutine(temporaryNoiseCoroutine);
+            GuardHear guardHear = collider.GetComponent<GuardHear>();
+            if (guardHear != null)
+            {
+                guardHear.ProcessNoise(transform, currentNoiseRange, WasImpulseNoise);
+            }
         }
-
-        temporaryNoiseCoroutine = StartCoroutine(TemporaryBaseNoiseCoroutine(newBaseLevel, duration));
     }
 
-    public void ResetBaseNoiseLevel()
+    public void SetMaxNoiseRange(float newMaxNoiseRange)
     {
-        if (temporaryNoiseCoroutine != null)
-        {
-            StopCoroutine(temporaryNoiseCoroutine);
-        }
-
-        baseNoiseLevel = originalBaseNoiseLevel;
-        NoiseLevel = Mathf.Max(NoiseLevel, baseNoiseLevel); 
-    }
-
-    private IEnumerator TemporaryBaseNoiseCoroutine(float newBaseLevel, float duration)
-    {
-        baseNoiseLevel = newBaseLevel;
-        NoiseLevel = Mathf.Max(NoiseLevel, baseNoiseLevel);
-
-        yield return new WaitForSeconds(duration);
-
-        ResetBaseNoiseLevel();
-    }
-
-    public void SetBaseNoiseLevel(float newBaseLevel)
-    {
-        baseNoiseLevel = newBaseLevel;
-        NoiseLevel = Mathf.Max(NoiseLevel, baseNoiseLevel); 
+        maxNoiseRange = newMaxNoiseRange;
     }
 
     private void OnDrawGizmos()
     {
-        // Visualize the max noise range
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.25f);
-        Gizmos.DrawSphere(transform.position, maxNoiseRange);
+        // Draw the maximum noise range as a red sphere
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, maxNoiseRange);
 
-        // Visualize the current noise level
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);
-        Gizmos.DrawSphere(transform.position, NoiseLevel);
+        // Draw the current noise range as a yellow sphere
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, currentNoiseRange);
     }
 }
