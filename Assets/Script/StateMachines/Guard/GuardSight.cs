@@ -9,10 +9,11 @@ public class GuardSight : MonoBehaviour
     public bool IsChasing = false;
 
     [Header("Detection Settings")]
-    [SerializeField] private float detectionRange = 10f;
-    [SerializeField] private List<Transform> raycastOrigins = new List<Transform>();
-    [SerializeField] private LayerMask detectionLayer;   // Layer for the player
-    [SerializeField] private LayerMask obstructionLayer; // Layer for obstacles
+    [SerializeField] private float detectionRange = 10f; // Maximum range
+    [SerializeField] private float fieldOfViewAngle = 90f; // Cone angle (centered forward)
+    [SerializeField] private List<Transform> raycastOrigins = new List<Transform>(); // Raycast origins
+    [SerializeField] private LayerMask detectionLayer;   // Player layer
+    [SerializeField] private LayerMask obstructionLayer; // Obstacle layer
 
     [field: SerializeField] public float detectionTime { get; private set; } = 5f;
     [field: SerializeField] public float lostSightTime { get; private set; } = 10f;
@@ -36,7 +37,7 @@ public class GuardSight : MonoBehaviour
 
         if (raycastOrigins.Count == 0)
         {
-            raycastOrigins.Add(transform);
+            raycastOrigins.Add(transform); // Fallback to self
         }
     }
 
@@ -44,37 +45,43 @@ public class GuardSight : MonoBehaviour
     {
         if (Player == null) return;
 
-        bool playerDetected = false;
-        bool playerObstructed = false;
+        IsPlayerDetected = false;
+        IsPlayerObstructed = false;
 
-        // Check each raycast origin
+        Vector3 toPlayer = Player.position - transform.position;
+
+        // Player must be within detection range and FOV
+        if (!(toPlayer.magnitude <= detectionRange && IsInFieldOfView(toPlayer))) return;
+
         foreach (Transform origin in raycastOrigins)
         {
-            Vector3 facingDirection = Player != null && (IsChasing || IsPlayerDetected)
-                ? (Player.position - origin.position).normalized
-                : origin.forward;
+            Vector3 direction = (Player.position - origin.position).normalized;
 
-            if (Physics.Raycast(origin.position, facingDirection, out RaycastHit hit, detectionRange, detectionLayer | obstructionLayer))
+            if (Physics.Raycast(origin.position, direction, out RaycastHit hit, detectionRange, detectionLayer | obstructionLayer))
             {
                 if (((1 << hit.collider.gameObject.layer) & detectionLayer) != 0)
                 {
-                    playerDetected = true;
-                    Debug.DrawLine(origin.position, hit.point, Color.green);
+                    IsPlayerDetected = true;
+                    Debug.DrawLine(origin.position, hit.point, Color.green); // Player detected
                 }
                 else
                 {
-                    playerObstructed = true;
-                    Debug.DrawLine(origin.position, hit.point, Color.red);
+                    IsPlayerObstructed = true;
+                    Debug.DrawLine(origin.position, hit.point, Color.red); // Obstruction detected
                 }
             }
             else
             {
-                Debug.DrawLine(origin.position, origin.position + facingDirection * detectionRange, Color.red);
+                Debug.DrawLine(origin.position, origin.position + direction * detectionRange, Color.yellow); // Nothing hit
             }
         }
+    }
 
-        IsPlayerDetected = playerDetected;
-        IsPlayerObstructed = playerObstructed;
+    private bool IsInFieldOfView(Vector3 toPlayer)
+    {
+        Vector3 forward = transform.forward;
+        float angleToPlayer = Vector3.Angle(forward, toPlayer.normalized);
+        return angleToPlayer <= fieldOfViewAngle / 2f;
     }
 
     public bool DetectPlayerForSeconds(float seconds)
@@ -82,7 +89,7 @@ public class GuardSight : MonoBehaviour
         if (IsPlayerDetected)
         {
             detectionTimer += Time.deltaTime;
-            Debug.Log($"Detection Timer: {detectionTimer}");
+            // Debug.Log($"Detection Timer: {detectionTimer}");
             return detectionTimer >= seconds;
         }
         else
@@ -142,5 +149,26 @@ public class GuardSight : MonoBehaviour
 
         onCaptureComplete?.Invoke();
         captureCountdownCoroutine = null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (raycastOrigins == null || raycastOrigins.Count == 0) return;
+
+        Gizmos.color = Color.yellow;
+
+        foreach (var origin in raycastOrigins)
+        {
+            // // Draw the detection range
+            // Gizmos.DrawWireSphere(origin.position, detectionRange);
+
+            // Draw the field of view
+            Vector3 forward = origin.forward;
+            Vector3 leftBoundary = Quaternion.Euler(0, -fieldOfViewAngle / 2, 0) * forward * detectionRange;
+            Vector3 rightBoundary = Quaternion.Euler(0, fieldOfViewAngle / 2, 0) * forward * detectionRange;
+
+            Gizmos.DrawLine(origin.position, origin.position + leftBoundary);
+            Gizmos.DrawLine(origin.position, origin.position + rightBoundary);
+        }
     }
 }

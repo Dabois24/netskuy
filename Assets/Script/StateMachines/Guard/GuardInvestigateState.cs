@@ -1,31 +1,28 @@
 using UnityEngine;
 
-public class GuardPatrolState : GuardBaseState
+public class GuardInvestigateState : GuardBaseState
 {
     private readonly int FreeLookBlendTreeHash = Animator.StringToHash("FreeLook Blend Tree");
     private readonly int FreeLookSpeedHash = Animator.StringToHash("FreeLookSpeed");
     private const float AnimatorDampTime = 0.1f;
     private const float CrossFadeDuration = 0.5f;
 
-    public GuardPatrolState(GuardStateMachine stateMachine) : base(stateMachine) { }
+    private Vector3 noisePosition;
+
+    public GuardInvestigateState(GuardStateMachine stateMachine, Vector3 noisePosition) : base(stateMachine)
+    {
+        this.noisePosition = noisePosition;
+    }
 
     public override void Enter()
     {
-        if (stateMachine.PatrolPoint == null || stateMachine.PatrolPoint.Count == 0)
-        {
-            stateMachine.CreatePatrolPoint();
-            stateMachine.SwitchState(new GuardScanState(stateMachine));
-        }
-
-        stateMachine.GuardSight.IsChasing = false;
-        stateMachine.GuardSight.ResetTimers();
+        Debug.Log($"Investigating noise at {noisePosition}");
         stateMachine.Animator.CrossFadeInFixedTime(FreeLookBlendTreeHash, CrossFadeDuration);
     }
 
     public override void Tick(float deltaTime)
     {
         stateMachine.GuardSight.UpdateSight();
-        stateMachine.GuardHear.ListenForNoise();
 
         if (stateMachine.GuardSight.DetectPlayerForSeconds(stateMachine.GuardSight.detectionTime))
         {
@@ -42,36 +39,32 @@ public class GuardPatrolState : GuardBaseState
             return;
         }
 
-        if (stateMachine.GuardHear.HasHeardNoise)
-        {
-            Debug.Log("Noise detected! Switching to Investigate State.");
-            stateMachine.SwitchState(new GuardInvestigateState(stateMachine, stateMachine.GuardHear.LastHeardPosition));
-            return;
-        }
+        // Rotate towards noise source
+        Vector3 direction = (noisePosition - stateMachine.transform.position).normalized;
+        FaceTarget(direction, deltaTime);
 
-        MoveToDestination(stateMachine.PatrolPoint[stateMachine.currentPatrolIndex].position, deltaTime);
-        stateMachine.Animator.SetFloat(FreeLookSpeedHash, 0.5f, AnimatorDampTime, deltaTime);
-
-        if (!stateMachine.Agent.pathPending && stateMachine.Agent.remainingDistance <= stateMachine.Agent.stoppingDistance)
+        // If close enough, switch to scan
+        if (Vector3.Distance(stateMachine.transform.position, noisePosition) < stateMachine.InvestigateToScanDistance)
         {
+            Debug.Log("Finished investigating noise. Returning to patrol.");
             stateMachine.SwitchState(new GuardScanState(stateMachine));
             return;
         }
 
+        MoveToDestination(noisePosition, deltaTime);
+        stateMachine.Animator.SetFloat(FreeLookSpeedHash, 0.5f, AnimatorDampTime, deltaTime);
     }
 
     public override void Exit()
     {
-        stateMachine.Agent.ResetPath();
-        stateMachine.Agent.velocity = Vector3.zero;
+        stateMachine.GuardHear.ResetHearing();
     }
-
     private void MoveToDestination(Vector3 destination, float deltaTime)
     {
         if (stateMachine.Agent.isOnNavMesh)
         {
             stateMachine.Agent.destination = destination;
-            Move(stateMachine.Agent.desiredVelocity.normalized * stateMachine.PatrolSpeed, deltaTime);
+            Move(stateMachine.Agent.desiredVelocity.normalized * stateMachine.InvestigateSpeed, deltaTime);
         }
 
         stateMachine.Agent.velocity = stateMachine.Controller.velocity;

@@ -19,6 +19,15 @@ public abstract class GuardBaseState : State
         stateMachine.Controller.Move((motion + stateMachine.ForceReceiver.Movement) * deltaTime);
     }
 
+    protected void StopMove(float deltaTime)
+    {
+        if (stateMachine.Agent.isOnNavMesh)
+        {
+            Move(deltaTime);
+        }
+        stateMachine.Agent.velocity = stateMachine.Controller.velocity;
+    }
+
     protected void FaceTarget(Vector3 target, float deltaTime)
     {
         Vector3 lookPos = target - stateMachine.transform.position;

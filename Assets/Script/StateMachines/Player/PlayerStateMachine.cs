@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(ForceReceiver), typeof(InputReader))]
+[RequireComponent(typeof(ForceReceiver), typeof(InputReader), typeof(NoiseSource))]
 public class PlayerStateMachine : StateMachine
 {
     [field: Header("Component")]
@@ -8,6 +8,7 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public CharacterController Controller { get; private set; }
     [field: SerializeField] public Animator Animator { get; private set; }
     [field: SerializeField] public ForceReceiver ForceReceiver { get; private set; }
+    [field: SerializeField] public NoiseSource NoiseSource { get; private set; }
 
     [field: Header("Movement")]
     [field: SerializeField] public float WalkingSpeed { get; private set; }
@@ -20,6 +21,14 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public float StandingOffset { get; private set; }
     [field: SerializeField] public float SneakingHeight { get; private set; }
     [field: SerializeField] public float SneakingOffset { get; private set; }
+
+    [field: Header("Noise")]
+    [field: SerializeField] public float WalkingBaseNoise { get; private set; } = 5;
+    [field: SerializeField] public float WalkingEmitIntensity { get; private set; } = 2;
+    [field: SerializeField] public float RunningBaseNoise { get; private set; } = 10;
+    [field: SerializeField] public float RunningEmitIntensity { get; private set; } = 5;
+    [field: SerializeField] public float SneakingBaseNoise { get; private set; } = 2;
+    [field: SerializeField] public float SneakingEmitIntensity { get; private set; } = 2;
 
 
     public Transform MainCameraTransform { get; private set; }

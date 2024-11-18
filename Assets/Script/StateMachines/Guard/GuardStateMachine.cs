@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(ForceReceiver), typeof(GuardSight))]
+[RequireComponent(typeof(ForceReceiver), typeof(GuardSight), typeof(GuardHear))]
 public class GuardStateMachine : StateMachine
 {
     [field: Header("Component")]
@@ -11,6 +11,7 @@ public class GuardStateMachine : StateMachine
     [field: SerializeField] public ForceReceiver ForceReceiver { get; private set; }
     [field: SerializeField] public NavMeshAgent Agent { get; private set; }
     [field: SerializeField] public GuardSight GuardSight { get; private set; }
+    [field: SerializeField] public GuardHear GuardHear { get; private set; }
 
     [field: Header("Patrol Setting")]
     [field: SerializeField] public float PatrolSpeed { get; private set; }
@@ -27,6 +28,9 @@ public class GuardStateMachine : StateMachine
     [field: SerializeField] public float ChaseSpeed { get; private set; }
     [field: SerializeField] public float CaptureDistance { get; private set; } = 1f; // 1 meter
 
+    [field: Header("Investigate Setting")]
+    [field: SerializeField] public float InvestigateSpeed { get; private set; }
+    [field: SerializeField] public float InvestigateToScanDistance { get; private set; } = 5f; // 1 meter
     private void Start()
     {
         Agent.updatePosition = false;

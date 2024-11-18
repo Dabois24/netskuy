@@ -1,4 +1,3 @@
-using Mono.Cecil;
 using UnityEngine;
 
 public class PlayerFreeLookState : PlayerBaseState
@@ -27,16 +26,20 @@ public class PlayerFreeLookState : PlayerBaseState
 
     public override void Tick(float deltaTime)
     {
-        float speed, blendHash;
+        float speed, blendHash, baseNoise, emitIntensity;
         if (stateMachine.InputReader.IsSprint)
         {
             speed = stateMachine.RunningSpeed;
             blendHash = RunningHash;
+            baseNoise = stateMachine.RunningBaseNoise;
+            emitIntensity = stateMachine.RunningEmitIntensity;
         }
         else
         {
             speed = stateMachine.WalkingSpeed;
             blendHash = WalkingHash;
+            baseNoise = stateMachine.WalkingBaseNoise;
+            emitIntensity = stateMachine.WalkingEmitIntensity;
         }
 
         Vector3 movement = CalculateMovement();
@@ -44,9 +47,14 @@ public class PlayerFreeLookState : PlayerBaseState
 
         if (stateMachine.InputReader.MovementValue == Vector2.zero)
         {
+            stateMachine.NoiseSource.ResetBaseNoiseLevel();
             stateMachine.Animator.SetFloat(FreeLookSpeedHash, 0, AnimatorDampTime, deltaTime);
             return;
         }
+
+        stateMachine.NoiseSource.SetBaseNoiseLevel(baseNoise);
+        stateMachine.NoiseSource.EmitNoise(emitIntensity);
+
         stateMachine.Animator.SetFloat(FreeLookSpeedHash, blendHash, AnimatorDampTime, deltaTime);
         FaceMovementDirection(movement, deltaTime);
     }

@@ -199,6 +199,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -1728013695380148634, guid: 30b413a553855614eaa872eb24006f2d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 719927512597151516}
+    - targetCorrespondingSourceObject: {fileID: -1728013695380148634, guid: 30b413a553855614eaa872eb24006f2d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6090670215565283091}
   m_SourcePrefab: {fileID: -3956505258223990651, guid: 30b413a553855614eaa872eb24006f2d, type: 3}
 --- !u!4 &4896043503645906718 stripped
 Transform:
@@ -291,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsChasing: 0
   detectionRange: 10
+  fieldOfViewAngle: 90
   raycastOrigins:
   - {fileID: 8760967703992244216}
   - {fileID: 7759430422200043217}
@@ -320,6 +324,7 @@ MonoBehaviour:
   <ForceReceiver>k__BackingField: {fileID: 4818987247284311759}
   <Agent>k__BackingField: {fileID: 2273571076113410997}
   <GuardSight>k__BackingField: {fileID: 9095614243679902343}
+  <GuardHear>k__BackingField: {fileID: 6090670215565283091}
   <PatrolSpeed>k__BackingField: 4
   <RotationDamping>k__BackingField: 10
   <scanMinAngle>k__BackingField: -45
@@ -331,3 +336,22 @@ MonoBehaviour:
   currentPatrolIndex: 0
   <ChaseSpeed>k__BackingField: 5
   <CaptureDistance>k__BackingField: 1
+  <InvestigateSpeed>k__BackingField: 4
+  <InvestigateToScanDistance>k__BackingField: 5
+--- !u!114 &6090670215565283091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7813282515132396808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d3c8b92c298be542bfa9fc037e4b60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hearingRange: 15
+  noiseDetectionThreshold: 5
+  noiseSourceLayer:
+    serializedVersion: 2
+    m_Bits: 1

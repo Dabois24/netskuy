@@ -1600,7 +1600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 628785336291284046, guid: 6dc3cce0defc4c549a9cd064a8bd236a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2820803969415984728, guid: 6dc3cce0defc4c549a9cd064a8bd236a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1701,7 +1701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7813282515132396808, guid: b7a3c7d62e9bb8a49bae98213691a5a7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1719,6 +1719,10 @@ PrefabInstance:
     - target: {fileID: 1171093600130203235, guid: 967a1d047914d0f4485e9c2f6d14b38c, type: 3}
       propertyPath: <detectionTime>k__BackingField
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2583079941973603763, guid: 967a1d047914d0f4485e9c2f6d14b38c, type: 3}
+      propertyPath: noiseSourceLayer.m_Bits
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4924017830594405272, guid: 967a1d047914d0f4485e9c2f6d14b38c, type: 3}
       propertyPath: <PatrolPoint>k__BackingField.Array.size

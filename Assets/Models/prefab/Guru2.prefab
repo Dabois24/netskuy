@@ -227,6 +227,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -1728013695380148634, guid: e6bb2c2f8bbf8d644a3833dad183db5f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3917054773832337867}
+    - targetCorrespondingSourceObject: {fileID: -1728013695380148634, guid: e6bb2c2f8bbf8d644a3833dad183db5f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2390576924174433287}
   m_SourcePrefab: {fileID: -3956505258223990651, guid: e6bb2c2f8bbf8d644a3833dad183db5f, type: 3}
 --- !u!1 &628785336291284046 stripped
 GameObject:
@@ -309,6 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsChasing: 0
   detectionRange: 10
+  fieldOfViewAngle: 90
   raycastOrigins:
   - {fileID: 9068329815978721333}
   - {fileID: 1456215219389483522}
@@ -338,6 +342,7 @@ MonoBehaviour:
   <ForceReceiver>k__BackingField: {fileID: 7833088173674139559}
   <Agent>k__BackingField: {fileID: 1886661200637116447}
   <GuardSight>k__BackingField: {fileID: 3083038386762577517}
+  <GuardHear>k__BackingField: {fileID: 2390576924174433287}
   <PatrolSpeed>k__BackingField: 4
   <RotationDamping>k__BackingField: 10
   <scanMinAngle>k__BackingField: -45
@@ -349,6 +354,25 @@ MonoBehaviour:
   currentPatrolIndex: 0
   <ChaseSpeed>k__BackingField: 5
   <CaptureDistance>k__BackingField: 1
+  <InvestigateSpeed>k__BackingField: 4
+  <InvestigateToScanDistance>k__BackingField: 5
+--- !u!114 &2390576924174433287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628785336291284046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d3c8b92c298be542bfa9fc037e4b60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hearingRange: 15
+  noiseDetectionThreshold: 5
+  noiseSourceLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!95 &2534002309167629353 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4870552773557632513, guid: e6bb2c2f8bbf8d644a3833dad183db5f, type: 3}
