@@ -271,7 +271,7 @@ MonoBehaviour:
   obstructionLayer:
     serializedVersion: 2
     m_Bits: 0
-  <detectionTime>k__BackingField: 60
+  <detectionTime>k__BackingField: 5
   <lostSightTime>k__BackingField: 10
   <captureCountdownTime>k__BackingField: 6
 --- !u!114 &6356229550336000752
@@ -354,9 +354,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d3c8b92c298be542bfa9fc037e4b60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hearingRange: 15
-  noiseThreshold: 5
   detectionTime: 2
-  noiseSourceLayer:
-    serializedVersion: 2
-    m_Bits: 1

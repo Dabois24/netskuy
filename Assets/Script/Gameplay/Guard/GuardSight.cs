@@ -5,9 +5,6 @@ using System.Collections.Generic;
 
 public class GuardSight : MonoBehaviour
 {
-    [Header("State")]
-    public bool IsChasing = false;
-
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 10f; // Maximum range
     [SerializeField] private float fieldOfViewAngle = 90f; // Cone angle (centered forward)

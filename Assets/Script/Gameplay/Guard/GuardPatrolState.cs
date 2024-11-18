@@ -17,7 +17,6 @@ public class GuardPatrolState : GuardBaseState
             stateMachine.SwitchState(new GuardScanState(stateMachine));
         }
 
-        stateMachine.GuardSight.IsChasing = false;
         stateMachine.GuardSight.ResetTimers();
         stateMachine.Animator.CrossFadeInFixedTime(FreeLookBlendTreeHash, CrossFadeDuration);
     }
