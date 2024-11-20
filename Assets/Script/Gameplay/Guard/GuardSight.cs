@@ -16,13 +16,13 @@ public class GuardSight : MonoBehaviour
     [field: SerializeField] public float lostSightTime { get; private set; } = 10f;
     [field: SerializeField] public float captureCountdownTime { get; private set; } = 6f;
 
+    public float detectionTimer { get; private set; }
+    public float lostSightTimer { get; private set; }
     public bool IsPlayerDetected { get; private set; }
     public bool IsPlayerObstructed { get; private set; }
     public Transform Player { get; private set; }
 
     private Coroutine captureCountdownCoroutine;
-    private float detectionTimer;
-    private float lostSightTimer;
 
     private void Awake()
     {
@@ -101,6 +101,7 @@ public class GuardSight : MonoBehaviour
         if (IsPlayerObstructed)
         {
             lostSightTimer += Time.deltaTime;
+            Debug.Log($"Lose Sight Timer: {lostSightTimer}");
             return lostSightTimer >= seconds;
         }
         else

@@ -49,6 +49,10 @@ public class GuardScanState : GuardBaseState
             stateMachine.SwitchState(new GuardChaseState(stateMachine));
             return true;
         }
+        else
+        {
+            stateMachine.DetectionIndicator.UpdateDetectionBar(stateMachine.GuardSight.detectionTimer, stateMachine.GuardSight.detectionTime);
+        }
 
         if (stateMachine.GuardSight.IsPlayerDetected)
         {

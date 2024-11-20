@@ -25,17 +25,25 @@ public class GuardChaseState : GuardBaseState
             stateMachine.SwitchState(new GuardPatrolState(stateMachine));
             return;
         }
+        else
+        {
+            stateMachine.DetectionIndicator.UpdateDetectionLoseBar(stateMachine.GuardSight.lostSightTimer, stateMachine.GuardSight.lostSightTime);
+        }
 
         // Chase the player
         MoveToDestination(stateMachine.GuardSight.Player.position, deltaTime);
 
         // Check for capture conditions
-        if (Vector3.Distance(stateMachine.transform.position, stateMachine.GuardSight.Player.position) <= stateMachine.CaptureDistance)
+        if (Vector3.Distance(stateMachine.transform.position, stateMachine.GuardSight.Player.position) <= stateMachine.CaptureDistance && !stateMachine.GuardSight.IsPlayerObstructed)
         {
             stateMachine.GuardSight.StartCaptureCountdown(() =>
             {
                 Debug.Log("Player busted.");
             });
+        }
+        else
+        {
+            stateMachine.GuardSight.StopCaptureCountdown();
         }
 
         stateMachine.Animator.SetFloat(FreeLookSpeedHash, 1, AnimatorDampTime, deltaTime);
