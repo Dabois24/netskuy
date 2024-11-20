@@ -5,12 +5,15 @@ using System.Collections.Generic;
 
 public class GuardSight : MonoBehaviour
 {
+    [Header("State")]
+    public bool IsChasing;
+
     [Header("Detection Settings")]
-    [SerializeField] private float detectionRange = 10f; // Maximum range
-    [SerializeField] private float fieldOfViewAngle = 90f; // Cone angle (centered forward)
-    [SerializeField] private List<Transform> raycastOrigins = new List<Transform>(); // Raycast origins
-    [SerializeField] private LayerMask detectionLayer;   // Player layer
-    [SerializeField] private LayerMask obstructionLayer; // Obstacle layer
+    [SerializeField] private float detectionRange = 10f;
+    [SerializeField] private float fieldOfViewAngle = 90f;
+    [SerializeField] private List<Transform> raycastOrigins = new List<Transform>();
+    [SerializeField] private LayerMask detectionLayer;
+    [SerializeField] private LayerMask obstructionLayer;
 
     [field: SerializeField] public float detectionTime { get; private set; } = 5f;
     [field: SerializeField] public float lostSightTime { get; private set; } = 10f;
@@ -42,35 +45,72 @@ public class GuardSight : MonoBehaviour
     {
         if (Player == null) return;
 
+        ResetDetectionFlags();
+
+        if (IsChasing)
+        {
+            CheckChaseDetection();
+        }
+        else
+        {
+            CheckNormalDetection();
+        }
+    }
+
+    private void ResetDetectionFlags()
+    {
         IsPlayerDetected = false;
         IsPlayerObstructed = false;
+    }
 
+    private void CheckChaseDetection()
+    {
+        foreach (Transform origin in raycastOrigins)
+        {
+            PerformRaycast(origin, ignoreYAxis: true);
+        }
+
+        foreach (Transform origin in raycastOrigins)
+        {
+            PerformRaycast(origin, ignoreYAxis: false);
+        }
+    }
+
+    private void CheckNormalDetection()
+    {
         Vector3 toPlayer = Player.position - transform.position;
-
-        // Player must be within detection range and FOV
         if (!(toPlayer.magnitude <= detectionRange && IsInFieldOfView(toPlayer))) return;
 
         foreach (Transform origin in raycastOrigins)
         {
-            Vector3 direction = (Player.position - origin.position).normalized;
+            PerformRaycast(origin, ignoreYAxis: false);
+        }
+    }
 
-            if (Physics.Raycast(origin.position, direction, out RaycastHit hit, detectionRange, detectionLayer | obstructionLayer))
+    private void PerformRaycast(Transform origin, bool ignoreYAxis)
+    {
+        Vector3 direction = Player.position - origin.position;
+        if (!ignoreYAxis) direction.y = 0;
+        direction.Normalize();
+
+        if (Physics.Raycast(origin.position, direction, out RaycastHit hit, detectionRange, detectionLayer | obstructionLayer))
+        {
+            if (((1 << hit.collider.gameObject.layer) & detectionLayer) != 0)
             {
-                if (((1 << hit.collider.gameObject.layer) & detectionLayer) != 0)
-                {
-                    IsPlayerDetected = true;
-                    Debug.DrawLine(origin.position, hit.point, Color.green); // Player detected
-                }
-                else
-                {
-                    IsPlayerObstructed = true;
-                    Debug.DrawLine(origin.position, hit.point, Color.red); // Obstruction detected
-                }
+                IsPlayerDetected = true;
+                // Debug.Log($"Player detected by {origin.name} at {hit.point}");
+                Debug.DrawLine(origin.position, hit.point, Color.green);
             }
             else
             {
-                Debug.DrawLine(origin.position, origin.position + direction * detectionRange, Color.yellow); // Nothing hit
+                IsPlayerObstructed = true;
+                // Debug.Log($"Obstruction detected by {origin.name} at {hit.point}");
+                Debug.DrawLine(origin.position, hit.point, Color.red);
             }
+        }
+        else
+        {
+            Debug.DrawLine(origin.position, origin.position + direction * detectionRange, Color.yellow);
         }
     }
 
@@ -81,34 +121,38 @@ public class GuardSight : MonoBehaviour
         return angleToPlayer <= fieldOfViewAngle / 2f;
     }
 
-    public bool DetectPlayerForSeconds(float seconds)
+    private bool CheckTimer(Action<float> updateTimer, Func<float> getTimer, float threshold, bool condition)
     {
-        if (IsPlayerDetected)
+        if (condition)
         {
-            detectionTimer += Time.deltaTime;
-            // Debug.Log($"Detection Timer: {detectionTimer}");
-            return detectionTimer >= seconds;
+            updateTimer(Mathf.Min(getTimer() + Time.deltaTime, threshold));
+            return getTimer() >= threshold;
         }
         else
         {
-            detectionTimer = 0;
+            updateTimer(Mathf.Max(getTimer() - Time.deltaTime, 0));
             return false;
         }
     }
 
+    public bool DetectPlayerForSeconds(float seconds)
+    {
+        return CheckTimer(
+            value => detectionTimer = value,
+            () => detectionTimer,
+            seconds,
+            IsPlayerDetected
+        );
+    }
+
     public bool LosePlayerForSeconds(float seconds)
     {
-        if (IsPlayerObstructed)
-        {
-            lostSightTimer += Time.deltaTime;
-            Debug.Log($"Lose Sight Timer: {lostSightTimer}");
-            return lostSightTimer >= seconds;
-        }
-        else
-        {
-            lostSightTimer = 0;
-            return false;
-        }
+        return CheckTimer(
+            value => lostSightTimer = value,
+            () => lostSightTimer,
+            seconds,
+            IsPlayerObstructed && !IsPlayerDetected
+        );
     }
 
     public void ResetTimers()
@@ -153,14 +197,10 @@ public class GuardSight : MonoBehaviour
     {
         if (raycastOrigins == null || raycastOrigins.Count == 0) return;
 
-        Gizmos.color = Color.yellow;
+        Gizmos.color = IsChasing ? Color.red : Color.yellow;
 
         foreach (var origin in raycastOrigins)
         {
-            // // Draw the detection range
-            // Gizmos.DrawWireSphere(origin.position, detectionRange);
-
-            // Draw the field of view
             Vector3 forward = origin.forward;
             Vector3 leftBoundary = Quaternion.Euler(0, -fieldOfViewAngle / 2, 0) * forward * detectionRange;
             Vector3 rightBoundary = Quaternion.Euler(0, fieldOfViewAngle / 2, 0) * forward * detectionRange;
