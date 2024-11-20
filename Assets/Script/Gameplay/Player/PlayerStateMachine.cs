@@ -9,6 +9,10 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public Animator Animator { get; private set; }
     [field: SerializeField] public ForceReceiver ForceReceiver { get; private set; }
     [field: SerializeField] public NoiseSource NoiseSource { get; private set; }
+    
+    [field: Header("AudioSource")]
+    [field: SerializeField] public AudioSource WalkSfx { get; private set; }
+    [field: SerializeField] public AudioSource RunSfx { get; private set; }
 
     [field: Header("Movement")]
     [field: SerializeField] public float WalkingSpeed { get; private set; }

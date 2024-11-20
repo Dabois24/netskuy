@@ -12,6 +12,7 @@ public class GuardStateMachine : StateMachine
     [field: SerializeField] public NavMeshAgent Agent { get; private set; }
     [field: SerializeField] public GuardSight GuardSight { get; private set; }
     [field: SerializeField] public GuardHear GuardHear { get; private set; }
+    [field: SerializeField] public AudioSource AudioSource { get; private set; }
 
     [field: Header("Patrol Setting")]
     [field: SerializeField] public float PatrolSpeed { get; private set; }

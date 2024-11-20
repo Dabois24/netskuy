@@ -60,6 +60,7 @@ public class GuardPatrolState : GuardBaseState
 
     public override void Exit()
     {
+        stateMachine.AudioSource.enabled = false;
         stateMachine.Agent.ResetPath();
         stateMachine.Agent.velocity = Vector3.zero;
     }
@@ -74,5 +75,6 @@ public class GuardPatrolState : GuardBaseState
 
         stateMachine.Agent.velocity = stateMachine.Controller.velocity;
         FaceTarget(destination, deltaTime);
+        stateMachine.AudioSource.enabled = true;
     }
 }

@@ -26,6 +26,7 @@ public abstract class GuardBaseState : State
             Move(deltaTime);
         }
         stateMachine.Agent.velocity = stateMachine.Controller.velocity;
+        stateMachine.AudioSource.enabled = false;
     }
 
     protected void FaceTarget(Vector3 target, float deltaTime)

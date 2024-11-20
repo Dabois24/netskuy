@@ -43,6 +43,7 @@ public class GuardChaseState : GuardBaseState
 
     public override void Exit()
     {
+        stateMachine.AudioSource.enabled = false;
         stateMachine.Agent.ResetPath();
         stateMachine.GuardSight.ResetTimers();
     }
@@ -58,5 +59,6 @@ public class GuardChaseState : GuardBaseState
 
         stateMachine.Agent.velocity = stateMachine.Controller.velocity;
         FaceTarget(destination, deltaTime);
+        stateMachine.AudioSource.enabled = true;
     }
 }

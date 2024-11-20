@@ -33,6 +33,7 @@ public class PlayerFreeLookState : PlayerBaseState
             blendHash = RunningHash;
             maxNoise = stateMachine.RunningMaxNoise;
             emitIntensity = stateMachine.RunningEmitIntensity;
+
         }
         else
         {
@@ -47,10 +48,14 @@ public class PlayerFreeLookState : PlayerBaseState
 
         if (stateMachine.InputReader.MovementValue == Vector2.zero)
         {
+            stateMachine.WalkSfx.enabled = false;
+            stateMachine.RunSfx.enabled = false;
             stateMachine.Animator.SetFloat(FreeLookSpeedHash, 0, AnimatorDampTime, deltaTime);
             return;
         }
 
+        stateMachine.WalkSfx.enabled = !stateMachine.InputReader.IsSprint;
+        stateMachine.RunSfx.enabled = stateMachine.InputReader.IsSprint;
         stateMachine.NoiseSource.SetMaxNoiseRange(maxNoise);
         stateMachine.NoiseSource.EmitNoise(emitIntensity);
 

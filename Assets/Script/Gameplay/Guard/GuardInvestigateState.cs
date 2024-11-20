@@ -67,6 +67,7 @@ public class GuardInvestigateState : GuardBaseState
 
     public override void Exit()
     {
+        stateMachine.AudioSource.enabled = false;
         stateMachine.GuardHear.ResetDetection();
     }
 
@@ -80,6 +81,7 @@ public class GuardInvestigateState : GuardBaseState
 
         stateMachine.Agent.velocity = stateMachine.Controller.velocity;
         FaceTarget(destination, deltaTime);
+        stateMachine.AudioSource.enabled = true;
     }
 
     private bool RotateTowards(Vector3 target, float deltaTime)
