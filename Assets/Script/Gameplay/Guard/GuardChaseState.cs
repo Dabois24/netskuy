@@ -11,6 +11,7 @@ public class GuardChaseState : GuardBaseState
 
     public override void Enter()
     {
+        stateMachine.GuardSight.IsChasing = true;
         stateMachine.GuardSight.ResetTimers();
         stateMachine.Animator.CrossFadeInFixedTime(FreeLookBlendTreeHash, CrossFadeDuration);
     }
@@ -52,6 +53,7 @@ public class GuardChaseState : GuardBaseState
     public override void Exit()
     {
         stateMachine.AudioSource.enabled = false;
+        stateMachine.GuardSight.IsChasing = false;
         stateMachine.Agent.ResetPath();
         stateMachine.GuardSight.ResetTimers();
     }
