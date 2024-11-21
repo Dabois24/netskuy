@@ -9,7 +9,7 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public Animator Animator { get; private set; }
     [field: SerializeField] public ForceReceiver ForceReceiver { get; private set; }
     [field: SerializeField] public NoiseSource NoiseSource { get; private set; }
-    
+
     [field: Header("AudioSource")]
     [field: SerializeField] public AudioSource WalkSfx { get; private set; }
     [field: SerializeField] public AudioSource RunSfx { get; private set; }
@@ -34,6 +34,11 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public float SneakingMaxNoise { get; private set; } = 2;
     [field: SerializeField] public float SneakingEmitIntensity { get; private set; } = 2;
 
+    [field: Header("Status")]
+    [field: SerializeField] public bool IsTargetable { get; private set; } = true;
+
+    [field: Header("Victory Animations")]
+    [field: SerializeField] public string[] VictoryAnimationNames { get; private set; } = { "Victory 0", "Victory 1", "Victory 2", "Victory 3" };
 
     public Transform MainCameraTransform { get; private set; }
     private void Start()
@@ -52,5 +57,22 @@ public class PlayerStateMachine : StateMachine
     {
         Controller.center = new Vector3(0, SneakingOffset, 0);
         Controller.height = SneakingHeight;
+    }
+
+    public void Win()
+    {
+        IsTargetable = false;
+        SwitchState(new PlayerVictoryState(this));
+    }
+
+    public void Busted()
+    {
+        IsTargetable = false;
+        SwitchState(new PlayerCollapseState(this));
+    }
+
+    public void OnCollapsedAnimationEnd()
+    {
+        Debug.Log("Game Over.");
     }
 }

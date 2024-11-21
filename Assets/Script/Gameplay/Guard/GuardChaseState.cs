@@ -37,10 +37,22 @@ public class GuardChaseState : GuardBaseState
         // Check for capture conditions
         if (Vector3.Distance(stateMachine.transform.position, stateMachine.GuardSight.Player.position) <= stateMachine.CaptureDistance && !stateMachine.GuardSight.IsPlayerObstructed)
         {
-            stateMachine.GuardSight.StartCaptureCountdown(() =>
+            if (stateMachine.GuardSight.Player.TryGetComponent<PlayerStateMachine>(out PlayerStateMachine player))
             {
-                Debug.Log("Player busted.");
-            });
+                if (player.IsTargetable)
+                {
+                    stateMachine.GuardSight.StartCaptureCountdown(() =>
+                    {
+                        Debug.Log("Player busted.");
+                        player.Busted();
+                    });
+                }
+                else
+                {
+                    stateMachine.SwitchState(new GuardVictoryState(stateMachine));
+                    return;
+                }
+            }
         }
         else
         {
@@ -56,6 +68,7 @@ public class GuardChaseState : GuardBaseState
         stateMachine.GuardSight.IsChasing = false;
         stateMachine.Agent.ResetPath();
         stateMachine.GuardSight.ResetTimers();
+        stateMachine.GuardSight.StopCaptureCountdown();
     }
 
     private void MoveToDestination(Vector3 destination, float deltaTime)

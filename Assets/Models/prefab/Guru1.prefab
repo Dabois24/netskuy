@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21601f89c1f8f7d43a5d9b5947111fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsChasing: 0
   detectionRange: 10
   fieldOfViewAngle: 90
   raycastOrigins:
@@ -342,9 +343,14 @@ MonoBehaviour:
   <PatrolPoint>k__BackingField: []
   currentPatrolIndex: 0
   <ChaseSpeed>k__BackingField: 5
-  <CaptureDistance>k__BackingField: 1
+  <CaptureDistance>k__BackingField: 2
   <InvestigateSpeed>k__BackingField: 4
   <InvestigateToScanDistance>k__BackingField: 5
+  <VictoryAnimationNames>k__BackingField:
+  - Victory 0
+  - Victory 1
+  - Victory 2
+  - Victory 3
 --- !u!114 &6090670215565283091
 MonoBehaviour:
   m_ObjectHideFlags: 0

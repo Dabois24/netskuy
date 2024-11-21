@@ -33,6 +33,10 @@ public class GuardStateMachine : StateMachine
     [field: Header("Investigate Setting")]
     [field: SerializeField] public float InvestigateSpeed { get; private set; }
     [field: SerializeField] public float InvestigateToScanDistance { get; private set; } = 5f; // 1 meter
+
+    [field: Header("Victory Animations")]
+    [field: SerializeField] public string[] VictoryAnimationNames { get; private set; } = {"Victory 0", "Victory 1", "Victory 2", "Victory 3"};
+
     private void Start()
     {
         Agent.updatePosition = false;
