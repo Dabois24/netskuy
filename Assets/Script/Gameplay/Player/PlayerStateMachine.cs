@@ -37,7 +37,8 @@ public class PlayerStateMachine : StateMachine
     [field: Header("Status")]
     [field: SerializeField] public bool IsTargetable { get; private set; } = true;
 
-    [field: Header("Victory Animations")]
+    [field: Header("Victory")]
+    [field: SerializeField] public float VictoryScreenWaitingTime { get; private set; } = 2;
     [field: SerializeField] public string[] VictoryAnimationNames { get; private set; } = { "Victory 0", "Victory 1", "Victory 2", "Victory 3" };
 
     public Transform MainCameraTransform { get; private set; }
@@ -74,5 +75,9 @@ public class PlayerStateMachine : StateMachine
     public void OnCollapsedAnimationEnd()
     {
         Debug.Log("Game Over.");
+    }
+    public void OnVictoryWaitCompleted()
+    {
+        Debug.Log("Game Win.");
     }
 }
