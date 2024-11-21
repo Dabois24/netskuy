@@ -4,7 +4,7 @@ using DG.Tweening;
 
 public class DetectionIndicator : MonoBehaviour
 {
-    [SerializeField] private Image frame;
+    [SerializeField] private Image icon;
     [SerializeField] private Image detectionBar;
 
     private void LateUpdate() {
