@@ -14,6 +14,7 @@ public class GuardChaseState : GuardBaseState
         stateMachine.GuardSight.IsChasing = true;
         stateMachine.GuardSight.ResetTimers();
         stateMachine.Animator.CrossFadeInFixedTime(FreeLookBlendTreeHash, CrossFadeDuration);
+        GameManager.Instance?.UpdateChasingGuardsCount(1);
     }
 
     public override void Tick(float deltaTime)
@@ -69,6 +70,7 @@ public class GuardChaseState : GuardBaseState
         stateMachine.Agent.ResetPath();
         stateMachine.GuardSight.ResetTimers();
         stateMachine.GuardSight.StopCaptureCountdown();
+        GameManager.Instance?.UpdateChasingGuardsCount(-1);
     }
 
     private void MoveToDestination(Vector3 destination, float deltaTime)

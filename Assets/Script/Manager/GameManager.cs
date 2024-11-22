@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     [field: Header("States")]
     [field: SerializeField] public GameState CurrentState { get; private set; }
+    public bool IsGameEnded { get; private set; }
 
     public enum GameState
     {
@@ -25,6 +26,8 @@ public class GameManager : MonoBehaviour
     [Header("Audio Settings")]
     [SerializeField] private float CrossFadeDuration = 1.5f;
 
+    private int chasingGuardsCount = 0;
+
     private void Awake()
     {
         if (Instance == null)
@@ -40,6 +43,12 @@ public class GameManager : MonoBehaviour
 
     public void ChangeState(GameState newState)
     {
+        if (IsGameEnded)
+        {
+            Debug.LogWarning($"Cannot change state from {CurrentState} to {newState}. Game has ended.");
+            return;
+        }
+
         if (CurrentState == newState) return;
 
         CurrentState = newState;
@@ -48,7 +57,8 @@ public class GameManager : MonoBehaviour
 
     private void HandleStateChange()
     {
-        GameEndScreen.ResetComponents();
+        if (!IsGameEnded)
+            GameEndScreen.ResetComponents();
 
         switch (CurrentState)
         {
@@ -61,14 +71,17 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
+                IsGameEnded = true;
                 GameEndScreen.PlayLoseAnimation();
                 break;
 
             case GameState.TimeUp:
+                IsGameEnded = true;
                 GameEndScreen.PlayTimeUpAnimation();
                 break;
 
             case GameState.Victory:
+                IsGameEnded = true;
                 GameEndScreen.PlayWinAnimation();
                 break;
         }
@@ -105,17 +118,34 @@ public class GameManager : MonoBehaviour
             from.DOFade(0, CrossFadeDuration).OnComplete(() =>
             {
                 from.Stop();
-                from.volume = 1; 
-                from.enabled = false; 
+                from.volume = 1;
+                from.enabled = false;
             });
         }
 
         if (to != null)
         {
-            to.enabled = true; 
-            to.volume = 0;    
-            to.Play(); 
+            to.enabled = true;
+            to.volume = 0;
+            to.Play();
             to.DOFade(1, CrossFadeDuration);
+        }
+    }
+
+    public void UpdateChasingGuardsCount(int delta)
+    {
+        if (IsGameEnded) return;
+
+        chasingGuardsCount += delta;
+
+        if (chasingGuardsCount > 0 && CurrentState != GameState.Alerted)
+        {
+            ChangeState(GameState.Alerted);
+        }
+        else if (chasingGuardsCount <= 0 && CurrentState != GameState.Exploration)
+        {
+            chasingGuardsCount = 0;
+            ChangeState(GameState.Exploration);
         }
     }
 }
