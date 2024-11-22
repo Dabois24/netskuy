@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3098660259856222731
 RectTransform:
   m_ObjectHideFlags: 0
@@ -462,9 +462,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d384347f48ed8449f1918dc9d2f229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Panel: {fileID: 925882066380696639}
   StatusMessage: {fileID: 454025497189116673}
-  WinMessage: []
-  LoseMessage: []
+  MainMenuButton: {fileID: 6269635623169530780}
+  WinMessage:
+  - {fileID: -1396136550, guid: a266ea61f8fcbff408ab9fc8baf941c7, type: 3}
+  LoseMessage:
+  - {fileID: 225280209, guid: 033e3cbb09f3dbe4a834c40022dc9c41, type: 3}
+  TimeUpMessage:
+  - {fileID: -2056156130, guid: 3ead65eb64c007541b4eb1ae11e93e20, type: 3}
+  WinMessageStartColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  LoseMessageStartColor: {r: 1, g: 0, b: 0, a: 1}
+  TimeUpMessageStartColor: {r: 1, g: 0, b: 1, a: 1}
+  MessageFinalColor: {r: 1, g: 1, b: 1, a: 1}
+  PanelFadeAlpha: 0.5
+  PanelFadeDuration: 1
+  MessageFadeDuration: 1
+  ButtonShowDelay: 0.5
 --- !u!1 &8354766342381323314
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3680355199176394358
 RectTransform:
   m_ObjectHideFlags: 0
@@ -500,7 +514,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 420, y: 63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &398369371481225347
 CanvasRenderer:
@@ -523,16 +537,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 225280209, guid: 033e3cbb09f3dbe4a834c40022dc9c41, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
