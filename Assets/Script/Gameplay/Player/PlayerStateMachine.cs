@@ -75,9 +75,11 @@ public class PlayerStateMachine : StateMachine
     public void OnCollapsedAnimationEnd()
     {
         Debug.Log("Game Over.");
+        GameManager.Instance?.ChangeState(GameManager.GameState.GameOver);
     }
     public void OnVictoryWaitCompleted()
     {
         Debug.Log("Game Win.");
+        GameManager.Instance?.ChangeState(GameManager.GameState.Victory);
     }
 }

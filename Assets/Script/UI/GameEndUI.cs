@@ -48,9 +48,10 @@ public class GameEndUI : MonoBehaviour
 
     private void PlayAnimation(List<Sprite> messageList, Color startColor)
     {
+        // Ensure all components are reset before playing the animation
+        ResetComponents();
+
         Panel.gameObject.SetActive(true);
-        StatusMessage.gameObject.SetActive(false);
-        MainMenuButton.gameObject.SetActive(false);
 
         StatusMessage.sprite = messageList[Random.Range(0, messageList.Count)];
         StatusMessage.color = startColor;
@@ -60,7 +61,6 @@ public class GameEndUI : MonoBehaviour
              .SetUpdate(true)
              .OnComplete(() =>
              {
-                 
                  StatusMessage.gameObject.SetActive(true);
                  StatusMessage.DOFade(1, MessageFadeDuration)
                               .SetUpdate(true)
@@ -70,7 +70,6 @@ public class GameEndUI : MonoBehaviour
                                                .SetUpdate(true)
                                                .OnComplete(() =>
                                                {
-                                                   
                                                    DOVirtual.DelayedCall(ButtonShowDelay, () =>
                                                    {
                                                        MainMenuButton.gameObject.SetActive(true);
@@ -78,5 +77,16 @@ public class GameEndUI : MonoBehaviour
                                                });
                               });
              });
+    }
+
+    public void ResetComponents()
+    {
+        Panel.gameObject.SetActive(false);
+        Panel.color = new Color(Panel.color.r, Panel.color.g, Panel.color.b, 0);
+
+        StatusMessage.gameObject.SetActive(false);
+        StatusMessage.color = Color.clear;
+
+        MainMenuButton.gameObject.SetActive(false);
     }
 }
