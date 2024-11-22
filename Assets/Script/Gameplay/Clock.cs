@@ -1,0 +1,43 @@
+using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
+
+public class Clock : MonoBehaviour
+{
+    [Header("Component")]
+    [SerializeField] private Image clockHand;
+
+    [Header("Values")]
+    [SerializeField] private float gameStartHour = 9f; 
+    [SerializeField] private float schoolEndHour = 15f;
+    [SerializeField] private float gamePlayTime = 300f;
+
+    private const float HoursInClock = 12f;
+    private const float DegreesPerHour = 360f / HoursInClock;
+
+    private void Start()
+    {
+        AnimateClockHand();
+    }
+
+    private void AnimateClockHand()
+    {
+        float startAngle = gameStartHour % HoursInClock * DegreesPerHour;
+        float endAngle = schoolEndHour % HoursInClock * DegreesPerHour;
+
+        if (endAngle < startAngle)
+        {
+            endAngle += 360f;
+        }
+
+        clockHand.rectTransform.rotation = Quaternion.Euler(0, 0, -startAngle);
+
+        clockHand.rectTransform
+            .DORotate(new Vector3(0, 0, -endAngle), gamePlayTime, RotateMode.FastBeyond360)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                GameManager.Instance?.ChangeState(GameManager.GameState.TimeUp);
+            });
+    }
+}

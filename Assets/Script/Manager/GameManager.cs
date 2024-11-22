@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
 
             case GameState.TimeUp:
                 IsGameEnded = true;
+                PlayerStateMachine player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerStateMachine>();
+                player.TimeUp();
                 GameEndScreen.PlayTimeUpAnimation();
                 break;
 

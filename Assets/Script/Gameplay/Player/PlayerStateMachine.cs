@@ -40,6 +40,7 @@ public class PlayerStateMachine : StateMachine
     [field: Header("Victory")]
     [field: SerializeField] public float VictoryScreenWaitingTime { get; private set; } = 2;
     [field: SerializeField] public string[] VictoryAnimationNames { get; private set; } = { "Victory 0", "Victory 1", "Victory 2", "Victory 3" };
+    [field: SerializeField] public string[] TimeUpAnimationNames { get; private set; } = { "Time Up 1", "Time Up 2", "Collapsed" };
 
     public Transform MainCameraTransform { get; private set; }
     private void Start()
@@ -64,6 +65,12 @@ public class PlayerStateMachine : StateMachine
     {
         IsTargetable = false;
         SwitchState(new PlayerVictoryState(this));
+    }
+    
+    public void TimeUp()
+    {
+        IsTargetable = false;
+        SwitchState(new PlayerTimeUpState(this));
     }
 
     public void Busted()
