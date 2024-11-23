@@ -36,6 +36,7 @@ public class PlayerStateMachine : StateMachine
 
     [field: Header("Status")]
     [field: SerializeField] public bool IsTargetable { get; private set; } = true;
+    [field: SerializeField] public bool IsLose { get; private set; } = false;
 
     [field: Header("Victory")]
     [field: SerializeField] public float VictoryScreenWaitingTime { get; private set; } = 2;
@@ -63,19 +64,23 @@ public class PlayerStateMachine : StateMachine
 
     public void Win()
     {
+        if (IsLose) return; // Prevent winning if already lose
+
         IsTargetable = false;
         SwitchState(new PlayerVictoryState(this));
     }
-    
+
     public void TimeUp()
     {
         IsTargetable = false;
+        IsLose = true;
         SwitchState(new PlayerTimeUpState(this));
     }
 
     public void Busted()
     {
         IsTargetable = false;
+        IsLose = true;
         SwitchState(new PlayerCollapseState(this));
     }
 
