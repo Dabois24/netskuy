@@ -25,15 +25,16 @@ public class Clock : MonoBehaviour
         float startAngle = gameStartHour % HoursInClock * DegreesPerHour;
         float endAngle = schoolEndHour % HoursInClock * DegreesPerHour;
 
-        if (endAngle < startAngle)
+        if (endAngle <= startAngle)
         {
             endAngle += 360f;
         }
 
         clockHand.rectTransform.rotation = Quaternion.Euler(0, 0, -startAngle);
 
+        float totalRotation = endAngle - startAngle;
         clockHand.rectTransform
-            .DORotate(new Vector3(0, 0, -endAngle), gamePlayTime, RotateMode.FastBeyond360)
+            .DORotate(new Vector3(0, 0, -startAngle - totalRotation), gamePlayTime, RotateMode.Fast)
             .SetEase(Ease.Linear)
             .OnComplete(() =>
             {

@@ -3004,6 +3004,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7985150399898965589, guid: 94b2c1a3e2a42b04e903e5ab8b511ecd, type: 3}
+      propertyPath: gamePlayTime
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -89,4 +89,9 @@ public class GameEndUI : MonoBehaviour
 
         MainMenuButton.gameObject.SetActive(false);
     }
+    
+    public void OpenMainMenu()
+    {
+        SceneLoader.Instance.LoadScene(1);
+    }
 }

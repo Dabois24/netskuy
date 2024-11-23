@@ -10,7 +10,7 @@ public class PlayerTimeUpState : PlayerBaseState
 
     public override void Enter()
     {
-        string animationName = stateMachine.TimeUpAnimationNames[Random.Range(0, stateMachine.VictoryAnimationNames.Length)];
+        string animationName = stateMachine.TimeUpAnimationNames[Random.Range(0, stateMachine.TimeUpAnimationNames.Length)];
         stateMachine.Animator.CrossFadeInFixedTime(animationName, CrossFadeDuration);
     }
 
