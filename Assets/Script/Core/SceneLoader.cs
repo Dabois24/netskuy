@@ -43,6 +43,7 @@ public class SceneLoader : MonoBehaviour
     private IEnumerator LoadSceneASync(string sceneToLoad)
     {
         loadingCurtain.SetActive(true);
+        yield return new WaitForSecondsRealtime(0.5f);
 
         // Begin async load
         AsyncOperation load = SceneManager.LoadSceneAsync(sceneToLoad);
