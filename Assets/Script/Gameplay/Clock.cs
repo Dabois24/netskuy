@@ -16,8 +16,8 @@ public class Clock : MonoBehaviour
 
     private const float HoursInClock = 12f;
     private const float DegreesPerHour = 360f / HoursInClock;
-    private const float DegreesPerMinute = 360f / 60f;
-    private const float DegreesPerSecond = 360f / 60f;
+    // private const float DegreesPerMinute = 360f / 60f;
+    // private const float DegreesPerSecond = 360f / 60f;
 
     private Tween hourTween;
     private Tween minuteTween;
