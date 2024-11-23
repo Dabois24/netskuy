@@ -42,13 +42,14 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            SceneLoader.Instance?.RegisterInitialization();
         }
         else
         {
             Destroy(gameObject);
         }
 
+        SceneLoader.Instance?.RegisterInitialization();
+        
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");

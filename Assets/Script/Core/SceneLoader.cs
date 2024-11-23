@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private GameObject loadingCurtain;
     [SerializeField] private Slider progressBar;
 
-    [HideInInspector] public int InitializationDelayer = 0;
+    public int InitializationDelayer = 0;
 
     private void Awake()
     {
@@ -26,6 +26,7 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadScene(string sceneToLoad)
     {
+        InitializationDelayer = 0;
         StartCoroutine(LoadSceneASync(sceneToLoad));
     }
 
@@ -73,13 +74,16 @@ public class SceneLoader : MonoBehaviour
     }
 
     public void RegisterInitialization()
-{
-    InitializationDelayer++;
-}
+    {
+        InitializationDelayer++;
+    }
 
-public void CompleteInitialization()
-{
-    InitializationDelayer--;
-}
+    public void CompleteInitialization()
+    {
+        InitializationDelayer--;
+
+        if (InitializationDelayer < 0)
+            InitializationDelayer = 0;
+    }
 
 }
