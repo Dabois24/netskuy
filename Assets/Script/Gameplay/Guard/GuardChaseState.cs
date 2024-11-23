@@ -23,8 +23,8 @@ public class GuardChaseState : GuardBaseState
 
         if (stateMachine.GuardSight.LosePlayerForSeconds(stateMachine.GuardSight.lostSightTime))
         {
-            Debug.Log("Lost sight of player. Transitioning to patrol state.");
-            stateMachine.SwitchState(new GuardPatrolState(stateMachine));
+            Debug.Log("Lost sight of player. Transitioning to scan state.");
+            stateMachine.SwitchState(new GuardScanState(stateMachine));
             return;
         }
         else
