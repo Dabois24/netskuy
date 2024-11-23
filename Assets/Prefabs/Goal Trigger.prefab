@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6942829410935595816}
   - component: {fileID: 7853847358720207518}
   - component: {fileID: 2254706342654482843}
+  - component: {fileID: 334403120875960900}
   m_Layer: 0
   m_Name: Goal Trigger
   m_TagString: Untagged
@@ -68,3 +69,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypointMarker: {fileID: 0}
   countdownDuration: 3
+--- !u!33 &334403120875960900
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8125413562918259995}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}

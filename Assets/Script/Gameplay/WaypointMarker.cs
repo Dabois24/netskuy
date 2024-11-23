@@ -6,7 +6,7 @@ using DG.Tweening;
 public class WaypointMarker : MonoBehaviour
 {
     [SerializeField] private Image waypointImage;
-    [SerializeField] private Image bar;
+    [SerializeField] private Slider bar;
     [SerializeField] private Transform target;
     [SerializeField] private TMP_Text distanceText;
     [SerializeField] private Vector3 offset;
@@ -44,16 +44,18 @@ public class WaypointMarker : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
 
-        waypointImage.transform.position = pos;
+        transform.position = pos;
     }
 
     private void UpdateDistanceText()
     {
+        if (distanceText == null) return;
+
         distanceText.text = ((int)Vector3.Distance(target.position, player.position)).ToString() + "m";
     }
 
     public void UpdateBar(float current, float max)
     {
-        bar.DOFillAmount(current / max, 0.1f); // Smoothly animate the bar fill
+        bar.DOValue(current / max, Time.deltaTime);
     }
 }

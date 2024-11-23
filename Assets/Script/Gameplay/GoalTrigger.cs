@@ -22,7 +22,7 @@ public class GoalTrigger : MonoBehaviour
         {
             countdownTimer -= Time.deltaTime;
 
-            waypointMarker.UpdateBar(countdownTimer, countdownDuration);
+            waypointMarker.UpdateBar(countdownDuration - countdownTimer, countdownDuration);
 
             if (countdownTimer <= 0)
             {

@@ -5,7 +5,7 @@ using DG.Tweening;
 public class DetectionIndicator : MonoBehaviour
 {
     [SerializeField] private Image icon;
-    [SerializeField] private Image detectionBar;
+    [SerializeField] private Slider detectionBar;
 
     private void LateUpdate() {
         transform.LookAt(transform.position + Camera.main.transform.forward, Camera.main.transform.rotation * Vector3.up);
@@ -13,10 +13,10 @@ public class DetectionIndicator : MonoBehaviour
 
     public void UpdateDetectionBar(float current, float max)
     {
-        detectionBar.DOFillAmount(current / max, Time.deltaTime);
+        detectionBar.DOValue(current / max, Time.deltaTime);
     }
     public void UpdateDetectionLoseBar(float current, float max)
     {
-        detectionBar.DOFillAmount((max - current) / max, Time.deltaTime);
+        detectionBar.DOValue((max - current) / max, Time.deltaTime);
     }
 }
