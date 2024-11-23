@@ -9,6 +9,8 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private GameObject loadingCurtain;
     [SerializeField] private Slider progressBar;
 
+    [HideInInspector] public int InitializationDelayer = 0;
+
     private void Awake()
     {
         if (Instance == null)
@@ -60,11 +62,24 @@ public class SceneLoader : MonoBehaviour
         progressBar.value = 1f;
         yield return new WaitForSecondsRealtime(0.5f);
 
-        // Activate scene once complete
+        // Activate scene
         load.allowSceneActivation = true;
-        yield return new WaitForSecondsRealtime(0.5f);
 
-        // Deactivate curtain after load completes
+        // Wait for all initializations to complete
+        yield return new WaitUntil(() => InitializationDelayer == 0);
+
+        // Deactivate curtain after everything completes
         loadingCurtain.SetActive(false);
     }
+
+    public void RegisterInitialization()
+{
+    InitializationDelayer++;
+}
+
+public void CompleteInitialization()
+{
+    InitializationDelayer--;
+}
+
 }
