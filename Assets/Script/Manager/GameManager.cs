@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource BackgroundMusicExploration;
     [SerializeField] private AudioSource BackgroundMusicAlert;
     [SerializeField] private GameEndUI GameEndScreen;
+    [SerializeField] private Clock Clock;
 
     [Header("Audio Settings")]
     [SerializeField] private float CrossFadeDuration = 1.5f;
@@ -72,11 +73,13 @@ public class GameManager : MonoBehaviour
 
             case GameState.GameOver:
                 IsGameEnded = true;
+                Clock.StopClockRotation();
                 GameEndScreen.PlayLoseAnimation();
                 break;
 
             case GameState.TimeUp:
                 IsGameEnded = true;
+                Clock.StopClockRotation();
                 PlayerStateMachine player = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerStateMachine>();
                 player.TimeUp();
                 GameEndScreen.PlayTimeUpAnimation();
@@ -84,6 +87,7 @@ public class GameManager : MonoBehaviour
 
             case GameState.Victory:
                 IsGameEnded = true;
+                Clock.StopClockRotation();
                 GameEndScreen.PlayWinAnimation();
                 break;
         }

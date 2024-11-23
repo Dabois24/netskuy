@@ -15,6 +15,8 @@ public class Clock : MonoBehaviour
     private const float HoursInClock = 12f;
     private const float DegreesPerHour = 360f / HoursInClock;
 
+    private Tween clockTween;
+
     private void Start()
     {
         AnimateClockHand();
@@ -33,12 +35,22 @@ public class Clock : MonoBehaviour
         clockHand.rectTransform.rotation = Quaternion.Euler(0, 0, -startAngle);
 
         float totalRotation = endAngle - startAngle;
-        clockHand.rectTransform
+
+        clockTween = clockHand.rectTransform
             .DORotate(new Vector3(0, 0, -startAngle - totalRotation), gamePlayTime, RotateMode.Fast)
             .SetEase(Ease.Linear)
             .OnComplete(() =>
             {
                 GameManager.Instance?.ChangeState(GameManager.GameState.TimeUp);
             });
+    }
+
+    public void StopClockRotation()
+    {
+        if (clockTween != null && clockTween.IsActive())
+        {
+            clockTween.Kill(false);
+            clockTween = null;
+        }
     }
 }
