@@ -289,12 +289,17 @@ MonoBehaviour:
   <SneakingMaxNoise>k__BackingField: 2
   <SneakingEmitIntensity>k__BackingField: 2
   <IsTargetable>k__BackingField: 1
+  <IsLose>k__BackingField: 0
   <VictoryScreenWaitingTime>k__BackingField: 2
   <VictoryAnimationNames>k__BackingField:
   - Victory 0
   - Victory 1
   - Victory 2
   - Victory 3
+  <TimeUpAnimationNames>k__BackingField:
+  - Time Up 1
+  - Time Up 2
+  - Collapsed
 --- !u!143 &5397140730735091052
 CharacterController:
   m_ObjectHideFlags: 0
@@ -315,7 +320,7 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1.75
   m_Radius: 0.25
-  m_SlopeLimit: 45
+  m_SlopeLimit: 50
   m_StepOffset: 0.3
   m_SkinWidth: 0.001
   m_MinMoveDistance: 0.001
