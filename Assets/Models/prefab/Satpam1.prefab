@@ -516,9 +516,9 @@ MonoBehaviour:
   obstructionLayer:
     serializedVersion: 2
     m_Bits: 64
-  <detectionTime>k__BackingField: 5
-  <lostSightTime>k__BackingField: 10
-  <captureCountdownTime>k__BackingField: 6
+  <detectionTime>k__BackingField: 2.5
+  <lostSightTime>k__BackingField: 5
+  <captureCountdownTime>k__BackingField: 3
 --- !u!114 &6356229550336000752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,8 +563,8 @@ MonoBehaviour:
   <sentryIdleDuration>k__BackingField: 2
   <PatrolPoint>k__BackingField: []
   currentPatrolIndex: 0
-  <ChaseSpeed>k__BackingField: 4
-  <CaptureDistance>k__BackingField: 2
+  <ChaseSpeed>k__BackingField: 4.5
+  <CaptureDistance>k__BackingField: 1
   <InvestigateSpeed>k__BackingField: 4
   <InvestigateToScanDistance>k__BackingField: 5
   <VictoryAnimationNames>k__BackingField:
