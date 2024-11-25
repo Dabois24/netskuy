@@ -1,0 +1,406 @@
+fileFormatVersion: 2
+guid: 56a15649250838343be93fd38cec1fee
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Text_Lose_1
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 1309
+        width: 295
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76df1719eb1716d4da690f5c41178440
+      internalID: -2043938712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Text_Lose_2
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 1169
+        width: 1070
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b4528368010cd5428118ed05147863b
+      internalID: -1547177932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Text_Lose_8
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 39
+        width: 2390
+        height: 263
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d935ed94a9a0b3e40975b7ed8240332f
+      internalID: 1707561219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Text_Lose_7
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 355
+        width: 786
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38c4ef0053aa5ec408637b535cf0319f
+      internalID: -944479833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Text_Lose_6
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 516
+        width: 1030
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: add0f086860e9ea46a7b65bcea85582b
+      internalID: -932754390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Text_Lose_5
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 698
+        width: 451
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1c7b50f68a0cfa458c9b9f6c33929d7
+      internalID: -1842269246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Text_Lose_4
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 840
+        width: 975
+        height: 98
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0c4cdeaaca8aac45a94543d25858b14
+      internalID: 788495739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Text_Lose_3
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 1019
+        width: 1069
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1f20810554d8494789a7af5d545a69a
+      internalID: 1900328872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: de2768d4c6474564ead9f07d7c14f0b9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Text_Lose_0: -1013392731
+      Text_Lose_1: -2043938712
+      Text_Lose_10: 874921832
+      Text_Lose_100: 463494051
+      Text_Lose_101: 1409355550
+      Text_Lose_102: 1841626050
+      Text_Lose_103: 73403294
+      Text_Lose_104: 232328128
+      Text_Lose_105: -1019050327
+      Text_Lose_106: 2375509
+      Text_Lose_107: 766141222
+      Text_Lose_108: -973709820
+      Text_Lose_109: 1740050450
+      Text_Lose_11: -874095661
+      Text_Lose_110: 1036279014
+      Text_Lose_111: 438664686
+      Text_Lose_112: -402818317
+      Text_Lose_113: 1428514515
+      Text_Lose_114: -610952855
+      Text_Lose_115: -1333646106
+      Text_Lose_116: -472539832
+      Text_Lose_117: -1608955689
+      Text_Lose_118: 1283830404
+      Text_Lose_119: 1085528213
+      Text_Lose_12: -1063668093
+      Text_Lose_13: -789455012
+      Text_Lose_14: -201257385
+      Text_Lose_15: 1485893686
+      Text_Lose_16: -883140799
+      Text_Lose_17: -1502489216
+      Text_Lose_19: 731443001
+      Text_Lose_2: -1547177932
+      Text_Lose_21: -1947362439
+      Text_Lose_22: 548465417
+      Text_Lose_23: 729317363
+      Text_Lose_24: -1219289109
+      Text_Lose_25: 1741212114
+      Text_Lose_26: 608367126
+      Text_Lose_27: 1179899029
+      Text_Lose_28: -699305138
+      Text_Lose_29: -679664598
+      Text_Lose_3: 1900328872
+      Text_Lose_30: -1403755378
+      Text_Lose_32: -246318508
+      Text_Lose_33: -460182693
+      Text_Lose_34: 387738618
+      Text_Lose_35: 143221465
+      Text_Lose_36: 448808197
+      Text_Lose_37: -1533606987
+      Text_Lose_38: -1843293073
+      Text_Lose_39: -1875244986
+      Text_Lose_4: 788495739
+      Text_Lose_40: -34192927
+      Text_Lose_41: 467135930
+      Text_Lose_43: -234205727
+      Text_Lose_44: -2088804521
+      Text_Lose_45: 1755998616
+      Text_Lose_46: -1429469696
+      Text_Lose_47: -274363960
+      Text_Lose_49: 73414946
+      Text_Lose_5: -1842269246
+      Text_Lose_50: 1473945138
+      Text_Lose_51: -1528665637
+      Text_Lose_52: 2078955454
+      Text_Lose_53: -865464975
+      Text_Lose_54: 811357850
+      Text_Lose_55: 309169406
+      Text_Lose_56: 805958963
+      Text_Lose_57: -139500573
+      Text_Lose_58: -1973989181
+      Text_Lose_59: 1217151415
+      Text_Lose_6: -932754390
+      Text_Lose_61: 1957867706
+      Text_Lose_62: -438846175
+      Text_Lose_63: 1908381721
+      Text_Lose_64: 375584383
+      Text_Lose_65: 812620039
+      Text_Lose_66: -1783383885
+      Text_Lose_67: -402730979
+      Text_Lose_68: -1911955637
+      Text_Lose_69: 1031318717
+      Text_Lose_7: -944479833
+      Text_Lose_70: 1470172452
+      Text_Lose_71: 282087719
+      Text_Lose_72: -1437491391
+      Text_Lose_74: -383556870
+      Text_Lose_75: 1748323845
+      Text_Lose_76: -1698115159
+      Text_Lose_77: -978887735
+      Text_Lose_78: -224626070
+      Text_Lose_79: -1569454657
+      Text_Lose_8: 1707561219
+      Text_Lose_80: -529851598
+      Text_Lose_81: -1452707883
+      Text_Lose_82: 63905892
+      Text_Lose_83: 1362524930
+      Text_Lose_84: 1380956864
+      Text_Lose_85: -923727163
+      Text_Lose_86: -100320022
+      Text_Lose_87: 1442372991
+      Text_Lose_88: -153295604
+      Text_Lose_89: -1801805524
+      Text_Lose_9: -830786890
+      Text_Lose_90: 531795293
+      Text_Lose_91: 97679025
+      Text_Lose_92: 644706393
+      Text_Lose_93: -1826402869
+      Text_Lose_94: -816972585
+      Text_Lose_95: 1984961664
+      Text_Lose_96: 179566473
+      Text_Lose_97: 1951014272
+      Text_Lose_98: -143741469
+      Text_Lose_99: 1915564592
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
