@@ -506,7 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsChasing: 0
   detectionRange: 10
-  fieldOfViewAngle: 90
+  fieldOfViewAngle: 126
   raycastOrigins:
   - {fileID: 6272837434362280113}
   - {fileID: 2435959704419106105}
